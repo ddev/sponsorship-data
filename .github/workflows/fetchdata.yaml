@@ -1,0 +1,26 @@
+name: Fetch Sponsorship Data
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch data with script
+        run: |
+          bash scripts/github-sponsorships.sh
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "Update sponsorship data [skip ci]" || echo "No changes to commit"
+          git push
