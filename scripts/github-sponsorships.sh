@@ -59,14 +59,16 @@ RESULT=$(jq -n \
     --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
     --arg updateDatetime "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
     '{
-        total_monthly_sponsorship: ($totalMonthly | tonumber),
-        total_sponsors: $totalSponsors,
-        sponsors_per_tier: $sponsorsPerTier,
-        update_datetime: $updateDatetime
+        github_sponsorships: {
+            total_monthly_sponsorship: ($totalMonthly | tonumber),
+            total_sponsors: $totalSponsors,
+            sponsors_per_tier: $sponsorsPerTier,
+            update_datetime: $updateDatetime
+        }
     }'
 )
 
 # Output JSON to file
-echo "$RESULT" > ${OUTPUT_FILE}
+printf "// dynamic github sponsors information, do not edit\n${RESULT}" > ${OUTPUT_FILE}
 
 echo "Sponsorship data saved to '${OUTPUT_FILE}'" >&2

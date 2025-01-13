@@ -1,22 +1,26 @@
+// dynamic github sponsors information, do not edit
 {
-  "total_monthly_sponsorship": 2598,
-  "total_sponsors": 61,
-  "sponsors_per_tier": {
-    "$1 a month": 5,
-    "$10 a month": 10,
-    "$100 a month": 4,
-    "$100 one time": 1,
-    "$2 a month": 2,
-    "$20 a month": 1,
-    "$20 one time": 2,
-    "$200 one time": 1,
-    "$25 a month": 12,
-    "$250 one time": 1,
-    "$5 a month": 17,
-    "$50 a month": 1,
-    "$500 a month": 1,
-    "$530 a month": 1,
-    "$6 a month": 1,
-    "$8 a month": 1
+  "github_sponsorships": {
+    "total_monthly_sponsorship": 2598,
+    "total_sponsors": 61,
+    "sponsors_per_tier": {
+      "$1 a month": 5,
+      "$10 a month": 10,
+      "$100 a month": 4,
+      "$100 one time": 1,
+      "$2 a month": 2,
+      "$20 a month": 1,
+      "$20 one time": 2,
+      "$200 one time": 1,
+      "$25 a month": 12,
+      "$250 one time": 1,
+      "$5 a month": 17,
+      "$50 a month": 1,
+      "$500 a month": 1,
+      "$530 a month": 1,
+      "$6 a month": 1,
+      "$8 a month": 1
+    },
+    "update_datetime": "2025-01-13T23:44:16Z"
   }
 }

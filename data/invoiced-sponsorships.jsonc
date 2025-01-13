@@ -1,7 +1,7 @@
 // Information from Harvest recurring invoices
 // Manually maintained.
 {
-  "monthly_sponsorships": {
+  "monthly_invoiced_sponsorships": {
     "total_monthly_sponsorship": 4164,
     "total_sponsors": 3,
     "monthly_sponsors_per_tier": {
@@ -15,7 +15,7 @@
       "10": 1
     }
   },
-  "annual_sponsorships": {
+  "annual_invoiced_sponsorships": {
     "total_annual_sponsorship": 8300,
     "total_sponsors": 7,
     "annual_sponsors_per_tier": {
