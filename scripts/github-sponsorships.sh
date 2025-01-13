@@ -8,7 +8,7 @@ set -eu -o pipefail
 TOKEN="${SPONSORSHIPS_READ_TOKEN}"  # Use GITHUB_TOKEN from the environment
 ORG="${SPONSORED_ORG_NAME}"        # Use ORG_NAME from the environment
 API_URL="https://api.github.com/graphql"
-OUTPUT_FILE=data/github-sponsors.json
+OUTPUT_FILE=data/github-sponsorships.jsonc
 
 # Ensure required environment variables are set
 if [ -z "${TOKEN:-}" ]; then

@@ -1,0 +1,30 @@
+// Information from Harvest recurring invoices
+// Manually maintained.
+{
+  "monthly_sponsorships": {
+    "total_monthly_sponsorship": 4164,
+    "total_sponsors": 3,
+    "monthly_sponsors_per_tier": {
+      // Redfin Solutions
+      "100": 1,
+      // Tag1
+      "1000": 1,
+      // Platform.sh
+      "3064": 1,
+      // T3Planet
+      "10": 1
+    }
+  },
+  "annual_sponsorships": {
+    "total_annual_sponsorship": 8300,
+    "total_sponsors": 7,
+    "annual_sponsors_per_tier": {
+      // B13
+      "2000": 1,
+      // Morris Animal Foundation
+      "300": 1,
+      // Healthcare without Harm, Cambrico, Agaric, Centarro, Pixel & Tonic
+      "1200": 5
+    }
+  }
+}
