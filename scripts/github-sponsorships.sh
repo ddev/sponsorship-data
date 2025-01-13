@@ -57,10 +57,12 @@ RESULT=$(jq -n \
     --arg totalMonthly "$TOTAL_MONTHLY" \
     --argjson totalSponsors "$TOTAL_SPONSORS" \
     --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
+    --arg updateDatetime "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
     '{
         total_monthly_sponsorship: ($totalMonthly | tonumber),
         total_sponsors: $totalSponsors,
-        sponsors_per_tier: $sponsorsPerTier
+        sponsors_per_tier: $sponsorsPerTier,
+        update_datetime: $updateDatetime
     }'
 )
 
