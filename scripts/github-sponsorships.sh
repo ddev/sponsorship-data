@@ -5,7 +5,7 @@ set -eu -o pipefail
 # GitHub API endpoint and token
 # GITHUB_TOKEN should be a classic github PAT with "read:org" and "read:user"
 # In the context of GitHub Actions, the provided GITHUB_TOKEN should be adequate.
-TOKEN="${GITHUB_TOKEN}"  # Use GITHUB_TOKEN from the environment
+TOKEN="${SPONSORSHIPS_READ_TOKEN}"  # Use GITHUB_TOKEN from the environment
 ORG="${SPONSORED_ORG_NAME}"        # Use ORG_NAME from the environment
 API_URL="https://api.github.com/graphql"
 OUTPUT_FILE=data/github-sponsors.json
