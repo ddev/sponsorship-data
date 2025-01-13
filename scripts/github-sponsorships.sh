@@ -6,7 +6,7 @@ set -eu -o pipefail
 # GITHUB_TOKEN should be a classic github PAT with "read:org" and "read:user"
 # In the context of GitHub Actions, the provided GITHUB_TOKEN should be adequate.
 TOKEN="${GITHUB_TOKEN}"  # Use GITHUB_TOKEN from the environment
-ORG="${ORG_NAME}"        # Use ORG_NAME from the environment
+ORG="${SPONSORED_ORG_NAME}"        # Use ORG_NAME from the environment
 API_URL="https://api.github.com/graphql"
 OUTPUT_FILE=data/github-sponsors.json
 
@@ -17,14 +17,14 @@ if [ -z "${TOKEN:-}" ]; then
 fi
 
 if [ -z "${ORG:-}" ]; then
-    echo "Error: ORG_NAME is not set."
+    echo "Error: ORG is not set."
     exit 1
 fi
 
 # GraphQL Query
 QUERY=$(cat <<EOF
 {
-  "query": "query { organization(login: \\"$ORG\\") { sponsorshipsAsMaintainer(first: 100) { totalCount nodes { sponsorEntity { ... on User { name } ... on Organization { name } } tier { name monthlyPriceInCents } } } } }"
+  "query": "query { organization(login: \\"${ORG}\\") { sponsorshipsAsMaintainer(first: 100) { totalCount nodes { sponsorEntity { ... on User { name } ... on Organization { name } } tier { name monthlyPriceInCents } } } } }"
 }
 EOF
 )

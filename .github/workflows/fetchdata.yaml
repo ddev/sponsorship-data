@@ -5,6 +5,10 @@ on:
     - cron: '0 0 * * *'  # Midnight UTC
   workflow_dispatch:
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SPONSORED_ORG_NAME: ${{ github.repository_owner }}
+
 jobs:
   update:
     runs-on: ubuntu-latest
