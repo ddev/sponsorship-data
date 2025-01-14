@@ -21,7 +21,7 @@
         "$6 a month": 1,
         "$8 a month": 1
       },
-      "update_datetime": "2025-01-14T16:23:01Z"
+      "update_datetime": "2025-01-14T16:30:39Z"
     }
   },
   {
@@ -36,7 +36,7 @@
       }
     },
     "annual_invoiced_sponsorships": {
-      "total_annual_sponsorship": 8300,
+      "total_annual_sponsorships": 3500,
       "total_sponsors": 7,
       "annual_sponsors_per_tier": {
         "2000": 1,
