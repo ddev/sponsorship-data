@@ -8,7 +8,7 @@ set -eu -o pipefail
 TOKEN="${SPONSORSHIPS_READ_TOKEN}"  # Use GITHUB_TOKEN from the environment
 ORG="${SPONSORED_ORG_NAME}"        # Use ORG_NAME from the environment
 API_URL="https://api.github.com/graphql"
-OUTPUT_FILE=data/github-sponsorships.jsonc
+OUTPUT_FILE=data/github-${ORG}-sponsorships.jsonc
 
 # Ensure required environment variables are set
 if [ -z "${TOKEN:-}" ]; then
@@ -53,19 +53,33 @@ SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r '
 ')
 
 # Create JSON result
+#RESULT=$(jq -n \
+#    --arg org "${ORG}" \
+#    --arg totalMonthly "$TOTAL_MONTHLY" \
+#    --argjson totalSponsors "$TOTAL_SPONSORS" \
+#    --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
+#    '{
+#        github_\($org)_sponsorships: {
+#            total_monthly_sponsorship: ($totalMonthly | tonumber),
+#            total_sponsors: $totalSponsors,
+#            sponsors_per_tier: $sponsorsPerTier,
+#        }
+#    }'
+#)
+
 RESULT=$(jq -n \
+    --arg org "${ORG}" \
     --arg totalMonthly "$TOTAL_MONTHLY" \
     --argjson totalSponsors "$TOTAL_SPONSORS" \
     --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
     '{
-        github_sponsorships: {
+        ("github_\($org)_sponsorships"): {
             total_monthly_sponsorship: ($totalMonthly | tonumber),
             total_sponsors: $totalSponsors,
-            sponsors_per_tier: $sponsorsPerTier,
+            sponsors_per_tier: $sponsorsPerTier
         }
     }'
 )
-
 # Output JSON to file
 printf "// dynamic github sponsors information, do not edit\n${RESULT}" > ${OUTPUT_FILE}
 
