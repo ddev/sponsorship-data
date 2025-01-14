@@ -18,6 +18,7 @@
   "annual_invoiced_sponsorships": {
     "total_annual_sponsorships": 3500,
     "total_sponsors": 7,
+    "monthly_equivalent_sponsorship": 292,
     "annual_sponsors_per_tier": {
       // B13
       "2000": 1,
