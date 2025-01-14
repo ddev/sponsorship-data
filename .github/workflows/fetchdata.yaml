@@ -45,7 +45,7 @@ jobs:
       - name: Fetch data with script
         run: |
           bash -c "SPONSORED_ENTITY_NAME=ddev SPONSORED_ENTITY_TYPE=organization scripts/github-sponsorships.sh"
-          bash -c "SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=uer scripts/github-sponsorships.sh"
+          bash -c "SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh"
           bash scripts/combine-sponsorships.sh
 
       - name: Commit and push changes
