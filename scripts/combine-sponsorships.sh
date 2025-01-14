@@ -25,6 +25,6 @@ paypal_total_monthly=$(jq -r .paypal_sponsorships data/tmp/paypal-sponsorships.j
 
 
 ## Combine the files into one
-jq -s '.' data/tmp/*.json > ${output_file}
+jq     --arg updateDatetime "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -s '.' data/tmp/*.json > ${output_file}
 
 echo "Combined JSONC written to $output_file" >&2
