@@ -3,7 +3,7 @@
 {
   "monthly_invoiced_sponsorships": {
     "total_monthly_sponsorship": 4174,
-    "total_sponsors": 3,
+    "total_sponsors": 4,
     "monthly_sponsors_per_tier": {
       // Redfin Solutions
       "100": 1,

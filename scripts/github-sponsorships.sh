@@ -59,7 +59,8 @@ fi
 
 # Parse data with jq
 TOTAL_SPONSORS=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.totalCount")
-TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[].tier.monthlyPriceInCents] | add / 100")
+#TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[].tier.monthlyPriceInCents] | add / 100")
+TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100")
 SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r "
     .data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes |
     group_by(.tier.name) |
