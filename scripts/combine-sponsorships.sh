@@ -7,7 +7,7 @@ if ! command -v strip-json-comments >/dev/null; then
 fi
 
 # Input files
-inputs="github-ddev-sponsorships invoiced-sponsorships paypal-sponsorships"
+inputs="github-ddev-sponsorships github-rfay-sponsorships invoiced-sponsorships paypal-sponsorships"
 
 # Output file
 output_file="data/all-sponsorships.json"
