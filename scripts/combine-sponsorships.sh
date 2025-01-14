@@ -24,7 +24,9 @@ invoiced_monthly_annual_equivalent=$(jq -r .annual_invoiced_sponsorships.monthly
 paypal_total_monthly=$(jq -r .paypal_sponsorships data/tmp/paypal-sponsorships.json)
 
 
-## Combine the files into one
-jq     --arg updateDatetime "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" -s '.' data/tmp/*.json > ${output_file}
+## Combine the files into one and add update time.
+jq -s --arg updated_datetime "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+  'reduce .[] as $item ({}; . * $item) + {updated_datetime: $updated_datetime}' \
+  data/tmp/*.json > "${output_file}"
 
 echo "Combined JSONC written to $output_file" >&2
