@@ -27,7 +27,7 @@ total_monthly_average_income=$((github_ddev_total_monthly + github_rfay_total_mo
 
 ## Combine the files into one and add update time.
 jq -s --arg updated_datetime "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
-  --arg total_monthly_average_income ${total_monthly_average_income} \
+  --argjson total_monthly_average_income ${total_monthly_average_income} \
   'reduce .[] as $item ({}; . * $item) + {total_monthly_average_income: $total_monthly_average_income} + {updated_datetime: $updated_datetime}' \
   data/tmp/*.json > "${output_file}"
 
