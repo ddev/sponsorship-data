@@ -1,6 +1,7 @@
 name: Fetch Sponsorship Data
 
 on:
+  push:
   schedule:
     - cron: '0 0 * * *'  # Midnight UTC
   workflow_dispatch:
@@ -44,6 +45,7 @@ jobs:
       - name: Fetch data with script
         run: |
           bash scripts/github-sponsorships.sh
+          bash scripts/combine-sponsorships.sh
 
       - name: Commit and push changes
         run: |
