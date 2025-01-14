@@ -18,6 +18,12 @@ for f in ${inputs}; do
   strip-json-comments data/$f.jsonc > data/tmp/$f.json
 done
 
+github_total_monthly=$(jq -r .github_sponsorships.total_monthly_sponsorship data/tmp/github-sponsorships.json)
+invoiced_total_monthly=$(jq -r .monthly_invoiced_sponsorships.total_monthly_sponsorship data/tmp/invoiced-sponsorships.json)
+invoiced_monthly_annual_equivalent=$(jq -r .annual_invoiced_sponsorships.monthly_equivalent_sponsorship data/tmp/invoiced-sponsorships.json)
+paypal_total_monthly=$(jq -r .paypal_sponsorships data/tmp/paypal-sponsorships.json)
+
+
 ## Combine the files into one
 jq -s '.' data/tmp/*.json > ${output_file}
 
