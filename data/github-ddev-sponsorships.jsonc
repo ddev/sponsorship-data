@@ -1,10 +1,10 @@
 // dynamic github sponsors information, do not edit
 {
   "github_ddev_sponsorships": {
-    "total_monthly_sponsorship": 2023,
-    "total_sponsors": 63,
+    "total_monthly_sponsorship": 2022,
+    "total_sponsors": 62,
     "sponsors_per_tier": {
-      "$1 a month": 5,
+      "$1 a month": 4,
       "$10 a month": 10,
       "$100 a month": 4,
       "$100 one time": 1,
