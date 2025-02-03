@@ -7,7 +7,7 @@ set -eu -o pipefail
 # In the context of GitHub Actions, the provided GITHUB_TOKEN should be adequate.
 TOKEN="${SPONSORSHIPS_READ_TOKEN}"  # Use GITHUB_TOKEN from the environment
 ENTITY="${SPONSORED_ENTITY_NAME}"        # Use ENTITY from SPONSORED_ENTITY_NAME from the environment
-ENTITY_TYPE="${SPONSORED_ENTITY_TYPE}" # "org" or "user"
+ENTITY_TYPE="${SPONSORED_ENTITY_TYPE}" # "organization" or "user"
 API_URL="https://api.github.com/graphql"
 OUTPUT_FILE=data/github-${ENTITY}-sponsorships.jsonc
 
@@ -61,8 +61,11 @@ fi
 TOTAL_SPONSORS=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.totalCount")
 #TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[].tier.monthlyPriceInCents] | add / 100")
 TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100")
+echo "$RESPONSE" >response.json
+# TODO: "a month" seems to pick up one-time somehow, and of course ignores "a year"
 SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r "
     .data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes |
+    map(select(.tier.name | test(\"a month\"))) |
     group_by(.tier.name) |
     map({(.[0].tier.name): length}) |
     add
