@@ -45,16 +45,28 @@ if [ "${ENTITY_TYPE}" = "organization" ]; then
   variables: { entity: $entity }
 }')
 elif [ "${ENTITY_TYPE}" = "user" ]; then
-  QUERY='$(cat <<EOF
+QUERY='$(cat <<EOF
 {
-  "query": "query { user(login: \\"${ENTITY}\\") { sponsorshipsAsMaintainer(first: 100) { totalCount nodes {           sponsorEntity {
+  "query": "query {
+    user(login: \\"${ENTITY}\\") {
+      sponsorshipsAsMaintainer(first: 100) {
+        totalCount
+        nodes {
+          sponsorEntity {
             ... on Organization { name }
             ... on User { login }
           }
- tier { name monthlyPriceInCents } } } } }"
+          tier {
+            name
+            monthlyPriceInCents
+          }
+        }
+      }
+    }
+  }"
 }
 EOF
-  )'
+)'
 else
   echo "Invalid ENTITY_TYPE specified. Must be 'organization' or 'user'."
   exit 1
