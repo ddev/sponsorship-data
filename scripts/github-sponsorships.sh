@@ -24,23 +24,42 @@ fi
 
 # GraphQL Query
 if [ "${ENTITY_TYPE}" = "organization" ]; then
-  QUERY=$(cat <<EOF
-{
-  "query": "query { organization(login: \\"${ENTITY}\\") { sponsorshipsAsMaintainer(first: 100) { totalCount nodes { sponsorEntity { ... on Organization { name } } tier { name monthlyPriceInCents } } } } }"
-}
-EOF
-  )
+  QUERY=$(jq -n --arg entity "$ENTITY" '{
+  query: "query($entity: String!) {
+    organization(login: $entity) {
+      sponsorshipsAsMaintainer(first: 100) {
+        totalCount
+        nodes {
+          sponsorEntity {
+            ... on Organization { name }
+            ... on User { login }
+          }
+          tier {
+            name
+            monthlyPriceInCents
+          }
+        }
+      }
+    }
+  }",
+  variables: { entity: $entity }
+}')
 elif [ "${ENTITY_TYPE}" = "user" ]; then
-  QUERY=$(cat <<EOF
+  QUERY='$(cat <<EOF
 {
-  "query": "query { user(login: \\"${ENTITY}\\") { sponsorshipsAsMaintainer(first: 100) { totalCount nodes { sponsorEntity { ... on User { name }  } tier { name monthlyPriceInCents } } } } }"
+  "query": "query { user(login: \\"${ENTITY}\\") { sponsorshipsAsMaintainer(first: 100) { totalCount nodes {           sponsorEntity {
+            ... on Organization { name }
+            ... on User { login }
+          }
+ tier { name monthlyPriceInCents } } } } }"
 }
 EOF
-  )
+  )'
 else
   echo "Invalid ENTITY_TYPE specified. Must be 'organization' or 'user'."
   exit 1
 fi
+
 
 # Fetch data from GitHub API
 RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
@@ -55,15 +74,11 @@ if [ $? -ne 0 ] || echo "$RESPONSE" | jq -e '.errors' >/dev/null 2>&1; then
     exit 1
 fi
 
-#echo $RESPONSE | jq
+ echo "$RESPONSE" >/tmp/response.json
 
-# Parse data with jq
 TOTAL_SPONSORS=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.totalCount")
-#TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[].tier.monthlyPriceInCents] | add / 100")
-TOTAL_MONTHLY=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100")
-echo "$RESPONSE" >response.json
-# TODO: "a month" seems to pick up one-time somehow, and of course ignores "a year"
-SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r "
+TOTAL_MONTHLY_SPONSORSHIPS=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100")
+MONTHLY_SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r "
     .data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes |
     map(select(.tier.name | test(\"a month\"))) |
     group_by(.tier.name) |
@@ -74,9 +89,9 @@ SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r "
 # Create JSON result
 RESULT=$(jq -n \
     --arg org "${ENTITY}" \
-    --arg totalMonthly "$TOTAL_MONTHLY" \
+    --arg totalMonthly "$TOTAL_MONTHLY_SPONSORSHIPS" \
     --argjson totalSponsors "$TOTAL_SPONSORS" \
-    --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
+    --argjson sponsorsPerTier "$MONTHLY_SPONSORS_PER_TIER" \
     '{
         ("github_\($org)_sponsorships"): {
             total_monthly_sponsorship: ($totalMonthly | tonumber),
