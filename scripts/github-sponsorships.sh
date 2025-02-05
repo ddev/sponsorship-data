@@ -22,56 +22,52 @@ if [ -z "${ENTITY:-}" ]; then
     exit 1
 fi
 
-# GraphQL Query
 if [ "${ENTITY_TYPE}" = "organization" ]; then
   QUERY=$(jq -n --arg entity "$ENTITY" '{
-  query: "query($entity: String!) {
-    organization(login: $entity) {
-      sponsorshipsAsMaintainer(first: 100) {
-        totalCount
-        nodes {
-          sponsorEntity {
-            ... on Organization { name }
-            ... on User { login }
-          }
-          tier {
-            name
-            monthlyPriceInCents
+    query: "query($entity: String!) {
+      organization(login: $entity) {
+        sponsorshipsAsMaintainer(first: 100) {
+          totalCount
+          nodes {
+            sponsorEntity {
+              ... on Organization { name }
+              ... on User { login }
+            }
+            tier {
+              name
+              monthlyPriceInCents
+            }
           }
         }
       }
-    }
-  }",
-  variables: { entity: $entity }
-}')
+    }",
+    variables: { entity: $entity }
+  }')
 elif [ "${ENTITY_TYPE}" = "user" ]; then
-QUERY='$(cat <<EOF
-{
-  "query": "query {
-    user(login: \\"${ENTITY}\\") {
-      sponsorshipsAsMaintainer(first: 100) {
-        totalCount
-        nodes {
-          sponsorEntity {
-            ... on Organization { name }
-            ... on User { login }
-          }
-          tier {
-            name
-            monthlyPriceInCents
+  QUERY=$(jq -n --arg entity "$ENTITY" '{
+    query: "query($entity: String!) {
+      user(login: $entity) {
+        sponsorshipsAsMaintainer(first: 100) {
+          totalCount
+          nodes {
+            sponsorEntity {
+              ... on Organization { name }
+              ... on User { login }
+            }
+            tier {
+              name
+              monthlyPriceInCents
+            }
           }
         }
       }
-    }
-  }"
-}
-EOF
-)'
+    }",
+    variables: { entity: $entity }
+  }')
 else
   echo "Invalid ENTITY_TYPE specified. Must be 'organization' or 'user'."
   exit 1
 fi
-
 
 # Fetch data from GitHub API
 RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
