@@ -104,10 +104,18 @@ RESULT=$(jq -n \
         ("github_\($org)_sponsorships"): {
             total_monthly_sponsorship: ($totalMonthly | tonumber),
             total_sponsors: $totalSponsors,
-            sponsors_per_tier: $sponsorsPerTier
+            sponsors_per_tier: (
+                $sponsorsPerTier |
+                to_entries |
+                map({key: .key, value: .value, num: (.key | capture("\\$(?<amount>\\d+) ") | .amount | tonumber)}) |
+                sort_by(.num) |
+                map({(.key): .value}) |
+                add
+            )
         }
     }'
 )
+
 # Output JSON to file
 printf "// dynamic github sponsors information, do not edit\n${RESULT}" > ${OUTPUT_FILE}
 
