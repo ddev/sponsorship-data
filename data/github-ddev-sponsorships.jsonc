@@ -5,19 +5,19 @@
     "total_sponsors": 66,
     "sponsors_per_tier": {
       "$1 a month": 4,
-      "$10 a month": 9,
-      "$100 a month": 4,
       "$2 a month": 2,
-      "$20 a month": 1,
-      "$25 a month": 17,
       "$3 a month": 1,
       "$5 a month": 18,
-      "$50 a month": 1,
-      "$500 a month": 1,
-      "$530 a month": 1,
       "$6 a month": 1,
       "$7 a month": 1,
-      "$8 a month": 1
+      "$8 a month": 1,
+      "$10 a month": 9,
+      "$20 a month": 1,
+      "$25 a month": 17,
+      "$50 a month": 1,
+      "$100 a month": 4,
+      "$500 a month": 1,
+      "$530 a month": 1
     }
   }
 }

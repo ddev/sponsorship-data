@@ -5,10 +5,10 @@
     "total_sponsors": 15,
     "sponsors_per_tier": {
       "$1 a month": 1,
-      "$100 a month": 2,
       "$2 a month": 2,
+      "$5 a month": 3,
       "$25 a month": 7,
-      "$5 a month": 3
+      "$100 a month": 2
     }
   }
 }
