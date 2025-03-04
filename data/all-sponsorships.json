@@ -20,11 +20,10 @@
     }
   },
   "github_rfay_sponsorships": {
-    "total_monthly_sponsorship": 394,
-    "total_sponsors": 15,
+    "total_monthly_sponsorship": 392,
+    "total_sponsors": 14,
     "sponsors_per_tier": {
       "$1 a month": 2,
-      "$2 a month": 1,
       "$5 a month": 3,
       "$25 a month": 7,
       "$100 a month": 2
@@ -51,6 +50,6 @@
     }
   },
   "paypal_sponsorships": 35,
-  "total_monthly_average_income": 7099,
-  "updated_datetime": "2025-03-03T00:14:16Z"
+  "total_monthly_average_income": 7097,
+  "updated_datetime": "2025-03-04T00:13:46Z"
 }
