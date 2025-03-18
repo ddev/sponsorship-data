@@ -1,11 +1,11 @@
 // dynamic github sponsors information, do not edit
 {
   "github_rfay_sponsorships": {
-    "total_monthly_sponsorship": 392,
-    "total_sponsors": 14,
+    "total_monthly_sponsorship": 387,
+    "total_sponsors": 13,
     "sponsors_per_tier": {
       "$1 a month": 2,
-      "$5 a month": 3,
+      "$5 a month": 2,
       "$25 a month": 7,
       "$100 a month": 2
     }
