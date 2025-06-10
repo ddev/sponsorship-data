@@ -3,9 +3,9 @@
 set -eu -o pipefail
 
 # GitHub API endpoint and token
-# GITHUB_TOKEN should be a classic github PAT with "read:org" and "read:user"
+# SPONSORSHIPS_READ_TOKEN should be a classic github PAT with "read:org" and "read:user"
 # In the context of GitHub Actions, the provided GITHUB_TOKEN should be adequate.
-TOKEN="${SPONSORSHIPS_READ_TOKEN}"  # Use GITHUB_TOKEN from the environment
+TOKEN="${SPONSORSHIPS_READ_TOKEN}"
 ENTITY="${SPONSORED_ENTITY_NAME}"        # Use ENTITY from SPONSORED_ENTITY_NAME from the environment
 ENTITY_TYPE="${SPONSORED_ENTITY_TYPE}" # "organization" or "user"
 API_URL="https://api.github.com/graphql"
@@ -22,84 +22,106 @@ if [ -z "${ENTITY:-}" ]; then
     exit 1
 fi
 
+# Prepare GraphQL query template with cursor
+QUERY_TEMPLATE='query($entity: String!, $after: String) {
+  %s(login: $entity) {
+    sponsorshipsAsMaintainer(first: 100, after: $after, includePrivate: true) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        sponsorEntity {
+          ... on Organization { name }
+          ... on User { login }
+        }
+        tier {
+          name
+          monthlyPriceInCents
+        }
+        privacyLevel
+      }
+    }
+  }
+}'
+
 if [ "${ENTITY_TYPE}" = "organization" ]; then
-  QUERY=$(jq -n --arg entity "$ENTITY" '{
-    query: "query($entity: String!) {
-      organization(login: $entity) {
-        sponsorshipsAsMaintainer(first: 100) {
-          totalCount
-          nodes {
-            sponsorEntity {
-              ... on Organization { name }
-              ... on User { login }
-            }
-            tier {
-              name
-              monthlyPriceInCents
-            }
-          }
-        }
-      }
-    }",
-    variables: { entity: $entity }
-  }')
+  GH_TYPE="organization"
 elif [ "${ENTITY_TYPE}" = "user" ]; then
-  QUERY=$(jq -n --arg entity "$ENTITY" '{
-    query: "query($entity: String!) {
-      user(login: $entity) {
-        sponsorshipsAsMaintainer(first: 100) {
-          totalCount
-          nodes {
-            sponsorEntity {
-              ... on Organization { name }
-              ... on User { login }
-            }
-            tier {
-              name
-              monthlyPriceInCents
-            }
-          }
-        }
-      }
-    }",
-    variables: { entity: $entity }
-  }')
+  GH_TYPE="user"
 else
   echo "Invalid ENTITY_TYPE specified. Must be 'organization' or 'user'."
   exit 1
 fi
 
-# Fetch data from GitHub API
-RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
-                     -H "Content-Type: application/json" \
-                     -d "$QUERY" \
-                     $API_URL)
+# Pagination loop to collect all sponsorships
+AFTER=null
+ALL_NODES="[]"
+HAS_NEXT_PAGE=true
+TOTAL_COUNT=0
 
-# Check for errors in the API response
-if [ $? -ne 0 ] || echo "$RESPONSE" | jq -e '.errors' >/dev/null 2>&1; then
-    echo "Error fetching data from GitHub API:"
-    echo "$RESPONSE" | jq '.errors'
-    exit 1
-fi
+while [ "$HAS_NEXT_PAGE" = true ]; do
+  # Prepare the query for this page
+  QUERY=$(jq -n \
+    --arg entity "$ENTITY" \
+    --arg after "$([ "$AFTER" = null ] && echo null || echo "\"$AFTER\"")" \
+    --arg query "$(printf "$QUERY_TEMPLATE" "$GH_TYPE")" \
+    '{
+      query: $query,
+      variables: {
+        entity: $entity,
+        after: ($after | fromjson)
+      }
+    }'
+  )
 
- echo "$RESPONSE" >/tmp/response.json
+  RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
+                   -H "Content-Type: application/json" \
+                   -d "$QUERY" \
+                   $API_URL)
 
-TOTAL_SPONSORS=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.totalCount")
-TOTAL_MONTHLY_SPONSORSHIPS=$(echo "$RESPONSE" | jq "[.data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100")
-MONTHLY_SPONSORS_PER_TIER=$(echo "$RESPONSE" | jq -r "
-    .data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes |
-    map(select(.tier.name | test(\"a month\"))) |
+  if [ $? -ne 0 ] || echo "$RESPONSE" | jq -e '.errors' >/dev/null 2>&1; then
+      echo "Error fetching data from GitHub API:"
+      echo "$RESPONSE" | jq '.errors'
+      exit 1
+  fi
+
+  # Save totalCount from the first page
+  if [ "$TOTAL_COUNT" -eq 0 ]; then
+    TOTAL_COUNT=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.totalCount")
+  fi
+
+  # Extract nodes and append to ALL_NODES
+  PAGE_NODES=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.nodes")
+  ALL_NODES=$(jq -s 'add' <(echo "$ALL_NODES") <(echo "$PAGE_NODES"))
+
+  # Check for next page
+  HAS_NEXT_PAGE=$(echo "$RESPONSE" | jq ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.pageInfo.hasNextPage")
+  AFTER=$(echo "$RESPONSE" | jq -r ".data.${ENTITY_TYPE}.sponsorshipsAsMaintainer.pageInfo.endCursor")
+  if [ "$AFTER" = "null" ]; then
+    AFTER=null
+  fi
+done
+
+# Save all nodes to a temp file for further processing
+echo "$ALL_NODES" > /tmp/all_sponsorship_nodes.json
+
+TOTAL_MONTHLY_SPONSORSHIPS=$(jq "[.[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100" /tmp/all_sponsorship_nodes.json)
+SPONSORS_PER_TIER=$(jq -r "
+    . |
+    map(select(.tier.name)) |
     group_by(.tier.name) |
     map({(.[0].tier.name): length}) |
     add
-")
+" /tmp/all_sponsorship_nodes.json)
 
 # Create JSON result
 RESULT=$(jq -n \
     --arg org "${ENTITY}" \
     --arg totalMonthly "$TOTAL_MONTHLY_SPONSORSHIPS" \
-    --argjson totalSponsors "$TOTAL_SPONSORS" \
-    --argjson sponsorsPerTier "$MONTHLY_SPONSORS_PER_TIER" \
+    --argjson totalSponsors "$TOTAL_COUNT" \
+    --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
     '{
         ("github_\($org)_sponsorships"): {
             total_monthly_sponsorship: ($totalMonthly | tonumber),
