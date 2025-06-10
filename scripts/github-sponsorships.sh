@@ -25,7 +25,7 @@ fi
 # Prepare GraphQL query template with cursor
 QUERY_TEMPLATE='query($entity: String!, $after: String) {
   %s(login: $entity) {
-    sponsorshipsAsMaintainer(first: 100, after: $after) {
+    sponsorshipsAsMaintainer(first: 100, after: $after, includePrivate: true) {
       totalCount
       pageInfo {
         hasNextPage
@@ -40,6 +40,7 @@ QUERY_TEMPLATE='query($entity: String!, $after: String) {
           name
           monthlyPriceInCents
         }
+        privacyLevel
       }
     }
   }
@@ -107,9 +108,9 @@ done
 echo "$ALL_NODES" > /tmp/all_sponsorship_nodes.json
 
 TOTAL_MONTHLY_SPONSORSHIPS=$(jq "[.[] | select(.tier.name | test(\"a month\")) | .tier.monthlyPriceInCents] | add / 100" /tmp/all_sponsorship_nodes.json)
-MONTHLY_SPONSORS_PER_TIER=$(jq -r "
+SPONSORS_PER_TIER=$(jq -r "
     . |
-    map(select(.tier.name | test(\"a month\"))) |
+    map(select(.tier.name)) |
     group_by(.tier.name) |
     map({(.[0].tier.name): length}) |
     add
@@ -120,7 +121,7 @@ RESULT=$(jq -n \
     --arg org "${ENTITY}" \
     --arg totalMonthly "$TOTAL_MONTHLY_SPONSORSHIPS" \
     --argjson totalSponsors "$TOTAL_COUNT" \
-    --argjson sponsorsPerTier "$MONTHLY_SPONSORS_PER_TIER" \
+    --argjson sponsorsPerTier "$SPONSORS_PER_TIER" \
     '{
         ("github_\($org)_sponsorships"): {
             total_monthly_sponsorship: ($totalMonthly | tonumber),
