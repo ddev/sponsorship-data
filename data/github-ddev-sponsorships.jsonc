@@ -2,12 +2,13 @@
 {
   "github_ddev_sponsorships": {
     "total_monthly_sponsorship": 2916,
-    "total_sponsors": 108,
+    "total_sponsors": 109,
     "sponsors_per_tier": {
       "$1 a month": 4,
       "$2 a month": 4,
       "$3 a month": 1,
       "$5 a month": 44,
+      "$5 one time": 1,
       "$6 a month": 1,
       "$7 a month": 1,
       "$8 a month": 1,
