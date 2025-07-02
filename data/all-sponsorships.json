@@ -1,19 +1,19 @@
 {
   "github_ddev_sponsorships": {
-    "total_monthly_sponsorship": 2916,
+    "total_monthly_sponsorship": 2896,
     "total_sponsors": 109,
     "sponsors_per_tier": {
       "$1 a month": 4,
       "$2 a month": 4,
       "$3 a month": 1,
-      "$5 a month": 44,
-      "$5 one time": 1,
+      "$5 a month": 43,
+      "$5 one time": 2,
       "$6 a month": 1,
       "$7 a month": 1,
       "$8 a month": 1,
-      "$10 a month": 12,
+      "$10 a month": 13,
       "$20 a month": 1,
-      "$25 a month": 24,
+      "$25 a month": 23,
       "$40 a month": 1,
       "$50 a month": 3,
       "$100 a month": 7,
@@ -53,6 +53,6 @@
     }
   },
   "paypal_sponsorships": 35,
-  "total_monthly_average_income": 7779,
-  "updated_datetime": "2025-07-01T00:18:05Z"
+  "total_monthly_average_income": 7759,
+  "updated_datetime": "2025-07-02T00:15:39Z"
 }
