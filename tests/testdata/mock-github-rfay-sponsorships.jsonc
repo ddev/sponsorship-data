@@ -1,0 +1,11 @@
+// Test fixture for github rfay sponsorships
+{
+  "github_rfay_sponsorships": {
+    "total_monthly_sponsorship": 200,
+    "total_sponsors": 4,
+    "sponsors_per_tier": {
+      "$5 a month": 2,
+      "$25 a month": 2
+    }
+  }
+}

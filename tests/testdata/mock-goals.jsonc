@@ -1,0 +1,19 @@
+{
+  // Test fixture for goals
+  "sponsorship_goals": [
+    {
+      "goal_id": "test-goal",
+      "description": "Test goal for validation",
+      "target_amount": 2000,
+      "goal_creation_date": "2025-01-01",
+      "goal_target_date": "2025-12-31",
+      "status": "active"
+    }
+  ],
+  "current_goal": {
+    "goal_id": "test-goal",
+    "target_amount": 2000,
+    "progress_percentage": 0
+  },
+  "appreciation_message": "Thank you for supporting our test project! 🧪"
+}

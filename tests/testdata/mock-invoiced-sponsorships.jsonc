@@ -1,0 +1,19 @@
+// Test fixture for invoiced sponsorships
+{
+  "monthly_invoiced_sponsorships": {
+    "total_monthly_sponsorship": 500,
+    "total_sponsors": 2,
+    "monthly_sponsors_per_tier": {
+      "100": 1,
+      "400": 1
+    }
+  },
+  "annual_invoiced_sponsorships": {
+    "total_annual_sponsorships": 1200,
+    "total_sponsors": 2,
+    "monthly_equivalent_sponsorship": 100,
+    "annual_sponsors_per_tier": {
+      "600": 2
+    }
+  }
+}
