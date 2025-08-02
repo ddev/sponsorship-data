@@ -1,0 +1,12 @@
+// Test fixture for github ddev sponsorships
+{
+  "github_ddev_sponsorships": {
+    "total_monthly_sponsorship": 1000,
+    "total_sponsors": 10,
+    "sponsors_per_tier": {
+      "$5 a month": 5,
+      "$10 a month": 3,
+      "$25 a month": 2
+    }
+  }
+}
