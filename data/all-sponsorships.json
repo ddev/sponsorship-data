@@ -70,11 +70,8 @@
   },
   "paypal_sponsorships": 35,
   "total_monthly_average_income": 7853,
-  "updated_datetime": "2025-08-02T15:27:07Z",
-  "historical_data": {
-    "one_week_ago": 7879,
-    "one_month_ago": 7759
-  },
+  "updated_datetime": "2025-08-02T15:29:58Z",
+  "historical_data": {},
   "monthly_historical_data": {
     "2025-08": {
       "date": "2025-08-02",
