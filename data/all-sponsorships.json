@@ -32,6 +32,22 @@
       "$100 a month": 2
     }
   },
+  "sponsorship_goals": [
+    {
+      "goal_id": "2025-q1-growth",
+      "description": "Reach $12,000 monthly recurring sponsorship",
+      "target_amount": 12000,
+      "goal_creation_date": "2025-01-01",
+      "goal_target_date": "2025-03-31",
+      "status": "active"
+    }
+  ],
+  "current_goal": {
+    "goal_id": "2025-q1-growth",
+    "target_amount": 12000,
+    "progress_percentage": 65.44
+  },
+  "appreciation_message": "❤️ DDEV is thriving thanks to our amazing sponsors! Your support helps us deliver the best local development experience. Thank you for being part of our success! 🚀",
   "monthly_invoiced_sponsorships": {
     "total_monthly_sponsorship": 4174,
     "total_sponsors": 4,
@@ -54,5 +70,15 @@
   },
   "paypal_sponsorships": 35,
   "total_monthly_average_income": 7853,
-  "updated_datetime": "2025-08-05T00:17:13Z"
+  "updated_datetime": "2025-08-02T15:27:07Z",
+  "historical_data": {
+    "one_week_ago": 7879,
+    "one_month_ago": 7759
+  },
+  "monthly_historical_data": {
+    "2025-08": {
+      "date": "2025-08-02",
+      "total_monthly_average_income": 7853
+    }
+  }
 }

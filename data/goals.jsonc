@@ -1,0 +1,19 @@
+{
+  // Sponsorship goals with creation and target dates
+  "sponsorship_goals": [
+    {
+      "goal_id": "2025-q1-growth",
+      "description": "Reach $12,000 monthly recurring sponsorship",
+      "target_amount": 12000,
+      "goal_creation_date": "2025-01-01",
+      "goal_target_date": "2025-03-31",
+      "status": "active"
+    }
+  ],
+  "current_goal": {
+    "goal_id": "2025-q1-growth",
+    "target_amount": 12000,
+    "progress_percentage": 65.44
+  },
+  "appreciation_message": "❤️ DDEV is thriving thanks to our amazing sponsors! Your support helps us deliver the best local development experience. Thank you for being part of our success! 🚀"
+}
