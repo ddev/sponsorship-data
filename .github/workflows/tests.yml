@@ -18,14 +18,7 @@ jobs:
         run: |
           # Install bats
           sudo apt-get update
-          sudo apt-get install -y bats
-          
-          # Install bats libraries
-          sudo mkdir -p /usr/lib/bats
-          for lib in bats-assert bats-file bats-support; do
-            git clone "https://github.com/bats-core/${lib}.git" "/tmp/${lib}"
-            sudo cp -r "/tmp/${lib}" /usr/lib/bats/
-          done
+          sudo apt-get install -y bats bats-assert bats-file bats-support
           
           # Install required tools
           sudo npm install -g strip-json-comments-cli
