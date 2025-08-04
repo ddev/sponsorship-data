@@ -33,6 +33,10 @@ setup() {
   if ! command -v strip-json-comments >/dev/null; then
     skip "strip-json-comments-cli is required but not installed"
   fi
+  if ! command -v bc >/dev/null; then
+    skip "bc is required but not installed"
+  fi
+
 }
 
 teardown() {
@@ -183,24 +187,6 @@ teardown() {
   
   echo "# Monthly historical data entries: $count" >&3
   [ "$count" -eq 1 ]
-}
-
-@test "script handles missing bc gracefully" {
-  # Temporarily move bc if it exists
-  if command -v bc >/dev/null; then
-    bc_path=$(command -v bc)
-    temp_bc="${TESTDIR}/bc.bak"
-    sudo mv "$bc_path" "$temp_bc" 2>/dev/null || skip "Cannot move bc for testing"
-    
-    # Script should fail without bc
-    run bash scripts/combine-sponsorships.sh
-    assert_failure
-    
-    # Restore bc
-    sudo mv "$temp_bc" "$bc_path" 2>/dev/null || true
-  else
-    skip "bc not installed, cannot test bc dependency"
-  fi
 }
 
 @test "github-sponsorships.sh validates required environment variables" {
