@@ -1,0 +1,126 @@
+name: Deploy API Data to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['data/*.jsonc', 'scripts/*']
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate set "debug_enabled"'
+        type: boolean
+        required: false
+        default: false
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SPONSORED_ORG_NAME: ${{ github.repository_owner }}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Load 1password secret(s)
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: "${{ secrets.TESTS_SERVICE_ACCOUNT_TOKEN }}"
+          SPONSORSHIPS_READ_TOKEN: "op://test-secrets/DDEV_READ_ORG_SPONSORSHIPS/credential"
+
+      - name: Install requirements
+        run: |
+          sudo npm install -g strip-json-comments-cli
+
+      - name: Setup tmate session
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+
+      - name: Fetch sponsorship data
+        run: |
+          set -eu -o pipefail
+          SPONSORED_ENTITY_NAME=ddev SPONSORED_ENTITY_TYPE=organization scripts/github-sponsorships.sh
+          SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh
+
+      - name: Generate API data
+        run: |
+          scripts/combine-sponsorships.sh
+
+      - name: Prepare Pages deployment
+        run: |
+          # Maintain existing URL structure for backward compatibility
+          mkdir -p _site/data
+          cp data/all-sponsorships.json _site/data/
+          
+          # Also provide it at /api/ for cleaner URLs
+          mkdir -p _site/api
+          cp data/all-sponsorships.json _site/api/
+          
+          # Create a simple index page for the API
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>DDEV Sponsorship API</title>
+            <meta charset="utf-8">
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+              pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+              .endpoint { background: #e3f2fd; padding: 0.5rem; border-radius: 4px; font-family: monospace; }
+            </style>
+          </head>
+          <body>
+            <h1>DDEV Sponsorship API</h1>
+            <p>This API provides current sponsorship data for the DDEV project.</p>
+            
+            <h2>Endpoints</h2>
+            <div class="endpoint">GET /data/all-sponsorships.json (original path)</div>
+            <div class="endpoint">GET /api/all-sponsorships.json (new path)</div>
+            
+            <h2>Direct Links</h2>
+            <p><a href="data/all-sponsorships.json">Original path (backward compatible)</a></p>
+            <p><a href="api/all-sponsorships.json">New API path</a></p>
+            
+            <h2>Usage</h2>
+            <pre>// Existing consumers - no changes needed!
+fetch('https://ddev.github.io/sponsorship-data/data/all-sponsorships.json')
+  .then(response => response.json())
+  .then(data => console.log(data));</pre>
+            
+            <h2>Repository</h2>
+            <p><a href="https://github.com/ddev/sponsorship-data">Source code and documentation</a></p>
+          </body>
+          </html>
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
