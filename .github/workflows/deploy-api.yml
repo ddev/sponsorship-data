@@ -102,10 +102,10 @@ jobs:
             <p><a href="api/all-sponsorships.json">New API path</a></p>
             
             <h2>Usage</h2>
-            <pre>// Existing consumers - no changes needed!
-fetch('https://ddev.github.io/sponsorship-data/data/all-sponsorships.json')
-  .then(response => response.json())
-  .then(data => console.log(data));</pre>
+            <pre>// Existing consumers - no changes needed.
+            fetch('https://ddev.github.io/sponsorship-data/data/all-sponsorships.json')
+              .then(response => response.json())
+              .then(data => console.log(data));</pre>
             
             <h2>Repository</h2>
             <p><a href="https://github.com/ddev/sponsorship-data">Source code and documentation</a></p>
