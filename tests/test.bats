@@ -250,8 +250,13 @@ teardown() {
   assert_success
 
   echo "# Test appreciation message: $(jq -r '.appreciation_message' data/all-sponsorships.json)" >&3
-  run jq -e '.appreciation_message | test("92% of our \\$2,000/month goal \\(\\$1,850/month\\)")' data/all-sponsorships.json
-  assert_success
+  # Test for either format (Linux uses no commas, macOS may use commas)
+  message=$(jq -r '.appreciation_message' data/all-sponsorships.json)
+  if [[ $message =~ "92% of our \$2,000/month goal (\$1,850/month)" ]] || [[ $message =~ "92% of our \$2000/month goal (\$1850/month)" ]]; then
+    true
+  else
+    false
+  fi
   
   # Verify all components are included
   run jq -e '.github_ddev_sponsorships.total_monthly_sponsorship == 1000' data/all-sponsorships.json
