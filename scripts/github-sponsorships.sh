@@ -5,9 +5,9 @@ set -eu -o pipefail
 # GitHub API endpoint and token
 # SPONSORSHIPS_READ_TOKEN should be a classic github PAT with "read:org" and "read:user"
 # In the context of GitHub Actions, the provided GITHUB_TOKEN should be adequate.
-TOKEN="${SPONSORSHIPS_READ_TOKEN}"
-ENTITY="${SPONSORED_ENTITY_NAME}"        # Use ENTITY from SPONSORED_ENTITY_NAME from the environment
-ENTITY_TYPE="${SPONSORED_ENTITY_TYPE}" # "organization" or "user"
+TOKEN="${SPONSORSHIPS_READ_TOKEN:-}"
+ENTITY="${SPONSORED_ENTITY_NAME:-}"        # Use ENTITY from SPONSORED_ENTITY_NAME from the environment
+ENTITY_TYPE="${SPONSORED_ENTITY_TYPE:-}" # "organization" or "user"
 API_URL="https://api.github.com/graphql"
 OUTPUT_FILE=data/github-${ENTITY}-sponsorships.jsonc
 
