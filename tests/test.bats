@@ -248,7 +248,8 @@ teardown() {
   # Verify test appreciation message is dynamically generated with progress data
   run jq -e '.appreciation_message | test("Thank you for supporting our test project!")' data/all-sponsorships.json
   assert_success
-  
+
+  echo "# Test appreciation message: $(jq -r '.appreciation_message' data/all-sponsorships.json)" >&3
   run jq -e '.appreciation_message | test("92% of our \\$2,000/month goal \\(\\$1,850/month\\)")' data/all-sponsorships.json
   assert_success
   
