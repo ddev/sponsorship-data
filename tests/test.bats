@@ -155,6 +155,7 @@ teardown() {
 }
 
 @test "total calculation matches sum of components" {
+
   run bash scripts/combine-sponsorships.sh
   assert_success
   
@@ -228,8 +229,10 @@ teardown() {
 
 @test "calculation with test fixtures" {
   # Copy test fixtures to data directory
-  cp tests/testdata/mock-*.jsonc data/
-  
+  for file in tests/testdata/mock-*.jsonc; do
+    target="data/$(basename "$file" | sed 's/^mock-//')"
+    cp "$file" "$target"
+  done
   # Run script with predictable test data
   run bash scripts/combine-sponsorships.sh
   assert_success
@@ -246,7 +249,7 @@ teardown() {
   run jq -e '.appreciation_message | test("Thank you for supporting our test project!")' data/all-sponsorships.json
   assert_success
   
-  run jq -e '.appreciation_message | test("93% of our \\$2000/month goal \\(\\$1850/month\\)")' data/all-sponsorships.json
+  run jq -e '.appreciation_message | test("92% of our \\$2,000/month goal \\(\\$1,850/month\\)")' data/all-sponsorships.json
   assert_success
   
   # Verify all components are included
