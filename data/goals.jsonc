@@ -15,5 +15,5 @@
     "target_amount": 12000,
     "progress_percentage": 65.44
   },
-  "appreciation_message_template": "❤️ DDEV is thriving thanks to our amazing sponsors! We're currently at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}/month). Your support helps us deliver the best local development experience. Help us reach ${TARGET_AMOUNT}/month by sponsoring at github.com/sponsors/ddev! 🚀"
+  "appreciation_message_template": "❤️ DDEV is thriving thanks to our amazing sponsors! We're currently at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}/month). Your support helps us deliver the best local development experience. Help us reach ${TARGET_AMOUNT}/month by sponsoring at https://github.com/sponsors/ddev! 🚀"
 }
