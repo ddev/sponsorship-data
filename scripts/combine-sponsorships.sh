@@ -55,8 +55,18 @@ else
   goal_progress=0
 fi
 
-# Extract appreciation message
-appreciation_message=$(jq -r .appreciation_message data/tmp/goals.json)
+# Extract and populate appreciation message template
+appreciation_template=$(jq -r .appreciation_message_template data/tmp/goals.json)
+progress_percent=$(printf "%.0f" "$goal_progress")
+
+# Format numbers with commas using awk
+target_formatted=$(echo "$goal_target" | awk '{printf "%'"'"'d", $1}')
+current_formatted=$(echo "$total_monthly_average_income" | awk '{printf "%'"'"'d", $1}')
+
+appreciation_message=$(echo "$appreciation_template" | \
+  sed "s/\${PROGRESS_PERCENT}/$progress_percent/g" | \
+  sed "s/\${TARGET_AMOUNT}/\$$target_formatted/g" | \
+  sed "s/\${CURRENT_AMOUNT}/\$$current_formatted/g")
 
 # Build git-based historical data JSON
 git_historical_data="{}"

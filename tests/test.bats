@@ -256,8 +256,11 @@ teardown() {
   run jq -e '.current_goal.progress_percentage == 92.50' data/all-sponsorships.json
   assert_success
   
-  # Verify test appreciation message is included
-  run jq -e '.appreciation_message == "Thank you for supporting our test project! 🧪"' data/all-sponsorships.json
+  # Verify test appreciation message is dynamically generated with progress data
+  run jq -e '.appreciation_message | test("Thank you for supporting our test project!")' data/all-sponsorships.json
+  assert_success
+  
+  run jq -e '.appreciation_message | test("93% of our \\$2000/month goal \\(\\$1850/month\\)")' data/all-sponsorships.json
   assert_success
   
   # Verify all components are included

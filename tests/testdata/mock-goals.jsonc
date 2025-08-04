@@ -15,5 +15,5 @@
     "target_amount": 2000,
     "progress_percentage": 0
   },
-  "appreciation_message": "Thank you for supporting our test project! 🧪"
+  "appreciation_message_template": "Thank you for supporting our test project! We're at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}/month). 🧪"
 }
