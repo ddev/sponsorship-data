@@ -3,7 +3,6 @@ name: Deploy API Data to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['data/*.jsonc', 'scripts/*']
   schedule:
     - cron: '0 0 * * *'  # Daily at midnight UTC
   workflow_dispatch:
@@ -28,8 +27,37 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  test:
     runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install requirements
+        run: |
+          sudo npm install -g strip-json-comments-cli
+
+      - name: Test script execution
+        run: |
+          # Test that scripts can run without errors
+          scripts/combine-sponsorships.sh
+
+      - name: Validate generated JSON
+        run: |
+          # Check that generated JSON is valid
+          if [ -f data/all-sponsorships.json ]; then
+            cat data/all-sponsorships.json | jq . > /dev/null
+            echo "Generated JSON is valid"
+          else
+            echo "No JSON file generated"
+            exit 1
+          fi
+
+  deploy:
+    runs-on: ubuntu-24.04
+    # Only run deployment on schedule or workflow_dispatch
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
