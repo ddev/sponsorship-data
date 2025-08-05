@@ -44,9 +44,10 @@ jobs:
 
       - name: Fetch data with script
         run: |
-          bash -c "SPONSORED_ENTITY_NAME=ddev SPONSORED_ENTITY_TYPE=organization scripts/github-sponsorships.sh"
-          bash -c "SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh"
-          bash scripts/combine-sponsorships.sh
+          set -eu -o pipefail
+          SPONSORED_ENTITY_NAME=ddev SPONSORED_ENTITY_TYPE=organization scripts/github-sponsorships.sh
+          SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh
+          scripts/combine-sponsorships.sh
 
       - name: Commit and push changes
         run: |

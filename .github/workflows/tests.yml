@@ -1,0 +1,40 @@
+name: Tests
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * *'  # 6 AM UTC daily
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install test dependencies
+        run: |
+          # Install bats
+          sudo apt-get update
+          sudo apt-get install -y bats bats-assert bats-file bats-support
+          
+          # Install required tools
+          sudo npm install -g strip-json-comments-cli
+          sudo apt-get install -y jq bc
+
+      - name: Run tests
+        run: |
+          cd ${{ github.workspace }}
+          bats ./tests/test.bats --verbose-run
+
+      - name: Upload test artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            /tmp/bats-*
+            data/
+          if-no-files-found: ignore
