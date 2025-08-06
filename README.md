@@ -12,16 +12,7 @@ The data here is accumulated from a few sources:
 
 ## API Usage
 
-The sponsorship data is available as a JSON API via GitHub Pages:
-
-```javascript
-fetch('https://ddev.github.io/sponsorship-data/data/all-sponsorships.json')
-  .then(response => response.json())
-  .then(data => {
-    console.log(`Current monthly income: $${data.total_monthly_average_income}`);
-    console.log(`Goal progress: ${data.current_goal?.progress_percentage}%`);
-  });
-```
+The sponsorship data is available as a [JSON file](https://ddev.com/s/sponsorship-data.json), which redirects to this repository's GitHub Pages at [https://ddev.github.io/sponsorship-data/data/all-sponsorships.json](https://ddev.github.io/sponsorship-data/data/all-sponsorships.json)
 
 ## Tools and Scripts
 
