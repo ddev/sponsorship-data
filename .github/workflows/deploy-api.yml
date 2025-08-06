@@ -152,20 +152,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Commit generated file for backward compatibility
-        run: |
-          # Configure git for the action
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-          # Add the generated file back to git for raw URL access
-          git add data/all-sponsorships.json
-
-          # Only commit if there are changes
-          if ! git diff --staged --quiet; then
-            git commit -m "Update sponsorship data [skip ci]"
-            git push
-          else
-            echo "No changes to commit"
-          fi
