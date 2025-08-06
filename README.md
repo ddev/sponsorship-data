@@ -4,10 +4,15 @@ Current information about DDEV's sponsors and current needs.
 
 The data here is accumulated from a few sources:
 
-* `all-sponsorships.json` is the summary of all DDEV sponsors. 
+* `all-sponsorships.json` is the summary of all DDEV sponsors, deployed via GitHub Pages at:
+  - **https://ddev.github.io/sponsorship-data/data/all-sponsorships.json** (API endpoint)
 * GitHub Sponsors data for the `ddev` organization is updated daily and automatically by the `github-sponsorships.sh` script here.
 * GitHub Sponsors data for the `rfay` user (goes into the same DDEV Foundation bank account) is updated daily and automatically by the `github-sponsorships.sh` script here. (A few sponsors started way back when we didn't have the `ddev` org and have never switched over.)
 * The `invoiced-sponsorships.jsonc` and `paypal-sponsorships.jsonc` are manually maintained here when generous donors sign up for these avenues.
+
+## API Usage
+
+The sponsorship data is available as a [JSON file](https://ddev.com/s/sponsorship-data.json), which redirects to this repository's GitHub Pages at [https://ddev.github.io/sponsorship-data/data/all-sponsorships.json](https://ddev.github.io/sponsorship-data/data/all-sponsorships.json)
 
 ## Tools and Scripts
 
