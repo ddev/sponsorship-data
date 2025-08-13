@@ -16,9 +16,33 @@ The sponsorship data is available as a [JSON file](https://ddev.com/s/sponsorshi
 
 ## Tools and Scripts
 
+### Sponsorship History
+
+To provide sponsorship history (previously available via git history of `all-sponsorships.json`), each daily deployment now saves a snapshot of the data in `data/history/YYYY-MM-DD.json`.  
+**These snapshots are committed to the `history` branch of this repository.**  
+You can analyze sponsorship changes over time by checking out the `history` branch:
+
+```bash
+git fetch origin history
+git checkout history
+# Now data/history/ contains all snapshots
+```
+
+#### Example: Show total monthly average income over time
+
+```bash
+for f in data/history/*.json; do
+  date=$(basename $f .json)
+  value=$(jq '.["total_monthly_average_income"]' < "$f")
+  echo "$date $value"
+done | sort
+```
+
 ### Sponsorship progress for the past two months
 
 `git log --since="2 months ago" --format="%H %ad" --date=short --reverse -- data/all-sponsorships.json | while read commit date; do   value=$(git show $commit:data/all-sponsorships.json | jq '.["total_monthly_average_income"]');   echo "$date $value"; done`
+
+_Note: For recent history, use the new `data/history/` snapshots in the `history` branch as described above._
 
 ## DDEV Foundation
 
@@ -30,3 +54,4 @@ See these resources:
 
 * [Support DDEV](https://ddev.com/support-ddev/)
 * [GitHub Sponsors for DDEV](https://github.com/sponsors/ddev)
+

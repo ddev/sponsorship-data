@@ -94,6 +94,29 @@ jobs:
         run: |
           scripts/combine-sponsorships.sh
 
+      - name: Save history snapshot
+        run: |
+          mkdir -p data/history
+          cp data/all-sponsorships.json data/history/$(date +%F).json
+
+      - name: Commit and push history snapshot to history branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin history || true
+          git checkout -B history origin/history || git checkout --orphan history
+          git pull origin history || true
+          mkdir -p data/history
+          cp ../data/history/*.json data/history/ 2>/dev/null || true
+          git add data/history/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: add sponsorship snapshot for $(date +%F)"
+            git push origin history
+          else
+            echo "No new history to commit"
+          fi
+          git checkout -
+
       - name: Prepare Pages deployment
         run: |
           # Maintain existing URL structure for backward compatibility
