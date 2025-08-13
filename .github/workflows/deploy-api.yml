@@ -2,7 +2,7 @@ name: Deploy API Data to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, 20250813_sponsorship_history]
   schedule:
     - cron: '0 0 * * *'  # Daily at midnight UTC
   workflow_dispatch:
