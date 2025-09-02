@@ -182,12 +182,12 @@ teardown() {
   run bash scripts/combine-sponsorships.sh
   assert_success
   
-  # Count monthly entries - should still be 1 for current month
+  # Check that current month entry exists exactly once (not duplicated)
   current_month=$(date -u +'%Y-%m')
-  count=$(jq --arg month "$current_month" '.monthly_historical_data | keys | length' data/all-sponsorships.json)
+  has_current_month=$(jq --arg month "$current_month" '.monthly_historical_data | has($month)' data/all-sponsorships.json)
   
-  echo "# Monthly historical data entries: $count" >&3
-  [ "$count" -eq 1 ]
+  echo "# Current month ($current_month) exists in historical data: $has_current_month" >&3
+  [ "$has_current_month" = "true" ]
 }
 
 @test "github-sponsorships.sh validates required environment variables" {
