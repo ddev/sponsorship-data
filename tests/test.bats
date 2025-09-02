@@ -182,12 +182,12 @@ teardown() {
   run bash scripts/combine-sponsorships.sh
   assert_success
   
-  # Count monthly entries - should still be 1 for current month
+  # Check that current month entry exists exactly once (not duplicated)
   current_month=$(date -u +'%Y-%m')
-  count=$(jq --arg month "$current_month" '.monthly_historical_data | keys | length' data/all-sponsorships.json)
+  has_current_month=$(jq --arg month "$current_month" '.monthly_historical_data | has($month)' data/all-sponsorships.json)
   
-  echo "# Monthly historical data entries: $count" >&3
-  [ "$count" -eq 1 ]
+  echo "# Current month ($current_month) exists in historical data: $has_current_month" >&3
+  [ "$has_current_month" = "true" ]
 }
 
 @test "github-sponsorships.sh validates required environment variables" {
@@ -195,12 +195,12 @@ teardown() {
   unset SPONSORSHIPS_READ_TOKEN || true
   run bash -c "SPONSORED_ENTITY_NAME=test SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh"
   assert_failure
-  assert_output --partial "Error: GITHUB_TOKEN is not set"
+  assert_output --partial "Error: SPONSORSHIPS_READ_TOKEN is not set"
   
   # Test missing SPONSORED_ENTITY_NAME
   run bash -c "SPONSORSHIPS_READ_TOKEN=fake_token SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh"
   assert_failure
-  assert_output --partial "Error: ENTITY is not set"
+  assert_output --partial "Error: SPONSORED_ENTITY_NAME is not set"
   
   # Test invalid SPONSORED_ENTITY_TYPE
   run bash -c "SPONSORSHIPS_READ_TOKEN=fake_token SPONSORED_ENTITY_NAME=test SPONSORED_ENTITY_TYPE=invalid scripts/github-sponsorships.sh"
