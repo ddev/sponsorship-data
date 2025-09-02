@@ -13,12 +13,12 @@ OUTPUT_FILE=data/github-${ENTITY}-sponsorships.jsonc
 
 # Ensure required environment variables are set
 if [ -z "${TOKEN:-}" ]; then
-    echo "Error: GITHUB_TOKEN is not set."
+    echo "Error: SPONSORSHIPS_READ_TOKEN is not set."
     exit 1
 fi
 
 if [ -z "${ENTITY:-}" ]; then
-    echo "Error: ENTITY is not set."
+    echo "Error: SPONSORED_ENTITY_NAME is not set."
     exit 1
 fi
 

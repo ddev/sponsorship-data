@@ -84,13 +84,13 @@ jobs:
         with:
           limit-access-to-actor: true
 
-      - name: Fetch sponsorship data
+      - name: Fetch GitHub sponsorship data
         run: |
           set -eu -o pipefail
           SPONSORED_ENTITY_NAME=ddev SPONSORED_ENTITY_TYPE=organization scripts/github-sponsorships.sh
           SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh
 
-      - name: Generate API data
+      - name: Generate combined data from github and static info
         run: |
           scripts/combine-sponsorships.sh
 

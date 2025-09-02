@@ -14,6 +14,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Load 1password secret(s)
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: "${{ secrets.TESTS_SERVICE_ACCOUNT_TOKEN }}"
+          SPONSORSHIPS_READ_TOKEN: "op://test-secrets/DDEV_READ_ORG_SPONSORSHIPS/credential"
+
       - name: Install test dependencies
         run: |
           # Install bats
@@ -23,6 +31,12 @@ jobs:
           # Install required tools
           sudo npm install -g strip-json-comments-cli
           sudo apt-get install -y jq bc
+
+      - name: Fetch github sponsorship data
+        run: |
+          set -eu -o pipefail
+          SPONSORED_ENTITY_NAME=ddev SPONSORED_ENTITY_TYPE=organization scripts/github-sponsorships.sh
+          SPONSORED_ENTITY_NAME=rfay SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh
 
       - name: Run tests
         run: |

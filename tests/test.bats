@@ -195,12 +195,12 @@ teardown() {
   unset SPONSORSHIPS_READ_TOKEN || true
   run bash -c "SPONSORED_ENTITY_NAME=test SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh"
   assert_failure
-  assert_output --partial "Error: GITHUB_TOKEN is not set"
+  assert_output --partial "Error: SPONSORSHIPS_READ_TOKEN is not set"
   
   # Test missing SPONSORED_ENTITY_NAME
   run bash -c "SPONSORSHIPS_READ_TOKEN=fake_token SPONSORED_ENTITY_TYPE=user scripts/github-sponsorships.sh"
   assert_failure
-  assert_output --partial "Error: ENTITY is not set"
+  assert_output --partial "Error: SPONSORED_ENTITY_NAME is not set"
   
   # Test invalid SPONSORED_ENTITY_TYPE
   run bash -c "SPONSORSHIPS_READ_TOKEN=fake_token SPONSORED_ENTITY_NAME=test SPONSORED_ENTITY_TYPE=invalid scripts/github-sponsorships.sh"
