@@ -1,0 +1,90 @@
+{
+  "github_ddev_sponsorships": {
+    "total_monthly_sponsorship": 3161,
+    "total_sponsors": 123,
+    "sponsors_per_tier": {
+      "$1 a month": 4,
+      "$2 a month": 4,
+      "$3 a month": 1,
+      "$5 a month": 51,
+      "$5 one time": 1,
+      "$6 a month": 1,
+      "$7 a month": 1,
+      "$8 a month": 1,
+      "$10 a month": 13,
+      "$20 a month": 1,
+      "$25 a month": 28,
+      "$40 a month": 1,
+      "$50 a month": 3,
+      "$50 one time": 1,
+      "$100 a month": 8,
+      "$100 one time": 1,
+      "$150 one time": 1,
+      "$500 a month": 1,
+      "$530 a month": 1
+    }
+  },
+  "github_rfay_sponsorships": {
+    "total_monthly_sponsorship": 361,
+    "total_sponsors": 11,
+    "sponsors_per_tier": {
+      "$1 a month": 1,
+      "$5 a month": 2,
+      "$25 a month": 6,
+      "$100 a month": 2
+    }
+  },
+  "sponsorship_goals": [
+    {
+      "goal_id": "2025-q1-growth",
+      "description": "Reach $12,000 monthly recurring sponsorship",
+      "target_amount": 12000,
+      "goal_creation_date": "2025-01-01",
+      "goal_target_date": "2025-03-31",
+      "status": "active"
+    }
+  ],
+  "current_goal": {
+    "goal_id": "2025-q1-growth",
+    "target_amount": 12000,
+    "progress_percentage": 66.65
+  },
+  "appreciation_message_template": "❤️ DDEV is thriving thanks to our amazing sponsors! We're currently at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}/month). Your support helps us deliver the best local development experience. Help us reach ${TARGET_AMOUNT}/month by sponsoring at https://github.com/sponsors/ddev! 🚀",
+  "monthly_invoiced_sponsorships": {
+    "total_monthly_sponsorship": 4174,
+    "total_sponsors": 4,
+    "monthly_sponsors_per_tier": {
+      "100": 1,
+      "1000": 1,
+      "3140": 1,
+      "10": 1
+    }
+  },
+  "annual_invoiced_sponsorships": {
+    "total_annual_sponsorships": 3500,
+    "total_sponsors": 7,
+    "monthly_equivalent_sponsorship": 292,
+    "annual_sponsors_per_tier": {
+      "2000": 1,
+      "300": 1,
+      "1200": 5
+    }
+  },
+  "paypal_sponsorships": 10,
+  "total_monthly_average_income": 7998,
+  "updated_datetime": "2025-09-16T00:22:40Z",
+  "historical_data": {
+    "one_week_ago": 7853
+  },
+  "monthly_historical_data": {
+    "2025-08": {
+      "date": "2025-08-05",
+      "total_monthly_average_income": 7853
+    },
+    "2025-09": {
+      "date": "2025-09-16",
+      "total_monthly_average_income": 7998
+    }
+  },
+  "appreciation_message": "❤️ DDEV is thriving thanks to our amazing sponsors! We're currently at 67% of our $12000/month goal ($7998/month). Your support helps us deliver the best local development experience. Help us reach $12000/month by sponsoring at https://github.com/sponsors/ddev! 🚀"
+}
