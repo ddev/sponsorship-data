@@ -15,5 +15,5 @@
     "target_amount": 12000,
     "progress_percentage": 65.44
   },
-  "appreciation_message_template": "We hit 70%! ❤️ Thank you! We're currently at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}). Read about why at https://ddev.com/blog/sustainability-for-ddev/ 🚀"
+  "appreciation_message_template": "❤️ Thank you! We're already at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}). Read about why at https://ddev.com/blog/sustainability-for-ddev/ 🚀"
 }
