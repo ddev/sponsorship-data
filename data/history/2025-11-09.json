@@ -1,0 +1,87 @@
+{
+  "github_ddev_sponsorships": {
+    "total_monthly_sponsorship": 3544,
+    "total_sponsors": 160,
+    "sponsors_per_tier": {
+      "$1 a month": 4,
+      "$2 a month": 4,
+      "$3 a month": 1,
+      "$5 a month": 75,
+      "$5 one time": 2,
+      "$7 a month": 2,
+      "$10 a month": 15,
+      "$10 one time": 2,
+      "$15 one time": 1,
+      "$20 a month": 1,
+      "$20 one time": 3,
+      "$25 a month": 34,
+      "$40 a month": 1,
+      "$50 a month": 3,
+      "$50 one time": 1,
+      "$100 a month": 9,
+      "$500 a month": 1,
+      "$530 a month": 1
+    }
+  },
+  "github_rfay_sponsorships": {
+    "total_monthly_sponsorship": 336,
+    "total_sponsors": 10,
+    "sponsors_per_tier": {
+      "$1 a month": 1,
+      "$5 a month": 2,
+      "$25 a month": 5,
+      "$100 a month": 2
+    }
+  },
+  "sponsorship_goals": [
+    {
+      "goal_id": "2025-q1-growth",
+      "description": "Reach $12,000 monthly recurring sponsorship",
+      "target_amount": 12000,
+      "goal_creation_date": "2025-01-01",
+      "goal_target_date": "2025-03-31",
+      "status": "active"
+    }
+  ],
+  "current_goal": {
+    "goal_id": "2025-q1-growth",
+    "target_amount": 12000,
+    "progress_percentage": 69.63
+  },
+  "appreciation_message_template": "❤️ Thank you! We're already at ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}). Read about why at https://ddev.com/blog/sustainability-for-ddev/ 🚀",
+  "monthly_invoiced_sponsorships": {
+    "total_monthly_sponsorship": 4174,
+    "total_sponsors": 4,
+    "monthly_sponsors_per_tier": {
+      "100": 1,
+      "1000": 1,
+      "3140": 1,
+      "10": 1
+    }
+  },
+  "annual_invoiced_sponsorships": {
+    "total_annual_sponsorships": 3500,
+    "total_sponsors": 7,
+    "monthly_equivalent_sponsorship": 292,
+    "annual_sponsors_per_tier": {
+      "2000": 1,
+      "300": 1,
+      "1200": 5
+    }
+  },
+  "paypal_sponsorships": 10,
+  "total_monthly_average_income": 8356,
+  "updated_datetime": "2025-11-09T00:26:53Z",
+  "historical_data": {},
+  "monthly_historical_data": {
+    "2025-08": {
+      "date": "2025-08-05",
+      "total_monthly_average_income": 7853
+    },
+    "2025-11": {
+      "date": "2025-11-09",
+      "total_monthly_average_income": 8356
+    }
+  },
+  "appreciation_message": "❤️ Thank you! We're already at 70% of our $12000/month goal ($8356). Read about why at https://ddev.com/blog/sustainability-for-ddev/ 🚀"
+}
