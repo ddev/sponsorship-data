@@ -1,5 +1,5 @@
 // Information from Harvest recurring invoices
-// Manually maintained.
+// Manually maintained in git.
 {
   "monthly_invoiced_sponsorships": {
     "total_monthly_sponsorship": 4174,
@@ -9,7 +9,7 @@
       "100": 1,
       // Tag1
       "1000": 1,
-      // Platform.sh
+      // Upsun
       "3140": 1,
       // T3Planet
       "10": 1
@@ -22,8 +22,8 @@
     "annual_sponsors_per_tier": {
       // B13
       "2000": 1,
-      // Morris Animal Foundation
-      "300": 1,
+      // Morris Animal Foundation, Johan Du Bois
+      "300": 2,
       // Cambrico, Agaric, Centarro, Pixel & Tonic, other annual $1200 sponsors
       "1200": 5
     }
