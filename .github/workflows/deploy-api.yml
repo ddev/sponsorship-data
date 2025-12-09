@@ -94,27 +94,35 @@ jobs:
         run: |
           scripts/combine-sponsorships.sh
 
-      - name: Save history snapshot
-        run: |
-          mkdir -p data/history
-          cp data/all-sponsorships.json data/history/$(date +%F).json
-
       - name: Commit and push history snapshot to history branch
         run: |
+          # Save current data to temp location
+          SNAPSHOT_DATE=$(date +%F)
+          TEMP_SNAPSHOT="/tmp/snapshot-${SNAPSHOT_DATE}.json"
+          cp data/all-sponsorships.json "${TEMP_SNAPSHOT}"
+          
+          # Configure git
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Fetch and checkout history branch
           git fetch origin history || true
           git checkout -B history origin/history || git checkout --orphan history
-          git pull origin history || true
+          
+          # Create directory and copy snapshot
           mkdir -p data/history
-          cp ../data/history/*.json data/history/ 2>/dev/null || true
+          cp "${TEMP_SNAPSHOT}" "data/history/${SNAPSHOT_DATE}.json"
+          
+          # Commit and push if there are changes
           git add data/history/
           if ! git diff --cached --quiet; then
-            git commit -m "chore: add sponsorship snapshot for $(date +%F)"
+            git commit -m "chore: add sponsorship snapshot for ${SNAPSHOT_DATE}"
             git push origin history
           else
             echo "No new history to commit"
           fi
+          
+          # Return to main branch
           git checkout -
 
       - name: Prepare Pages deployment
