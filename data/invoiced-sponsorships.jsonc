@@ -2,7 +2,8 @@
 // Manually maintained in git.
 {
   "monthly_invoiced_sponsorships": {
-    "total_monthly_sponsorship": 4174,
+    // total_monthly_sponsorship must be manually maintained
+    "total_monthly_sponsorship": 2275,
     "total_sponsors": 4,
     "monthly_sponsors_per_tier": {
       // Redfin Solutions
