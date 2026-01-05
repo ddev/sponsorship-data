@@ -4,7 +4,8 @@
   "monthly_invoiced_sponsorships": {
     // total_monthly_sponsorship must be manually maintained
     "total_monthly_sponsorship": 2430,
-    "total_sponsors": 4,
+    // total_sponsors must be manually maintained
+    "total_sponsors": 6,
     "monthly_sponsors_per_tier": {
       // Redfin Solutions and LetsTalk
       "100": 2,
@@ -19,8 +20,11 @@
     }
   },
   "annual_invoiced_sponsorships": {
+    // total_annual_sponsorships must be manually maintained
     "total_annual_sponsorships": 8600,
+    // total_sponsors must be manually maintained
     "total_sponsors": 8,
+    // monthly_equivalent_sponsorship must be manually maintained
     "monthly_equivalent_sponsorship": 717,
     "annual_sponsors_per_tier": {
       // B13
