@@ -3,24 +3,28 @@
 {
   "monthly_invoiced_sponsorships": {
     // total_monthly_sponsorship must be manually maintained
-    "total_monthly_sponsorship": 2275,
-    "total_sponsors": 4,
+    "total_monthly_sponsorship": 2430,
+    // total_sponsors must be manually maintained
+    "total_sponsors": 6,
     "monthly_sponsors_per_tier": {
-      // Redfin Solutions
-      "100": 1,
+      // Redfin Solutions and LetsTalk
+      "100": 2,
       // Tag1
       "1000": 1,
       // Upsun
-      "1165": 1,
-      // webHub
-      "50": 1,
+      "1162": 1,
+      // webHub (50 euros)
+      "58": 1,
       // T3Planet
       "10": 1
     }
   },
   "annual_invoiced_sponsorships": {
+    // total_annual_sponsorships must be manually maintained
     "total_annual_sponsorships": 8600,
+    // total_sponsors must be manually maintained
     "total_sponsors": 8,
+    // monthly_equivalent_sponsorship must be manually maintained
     "monthly_equivalent_sponsorship": 717,
     "annual_sponsors_per_tier": {
       // B13
