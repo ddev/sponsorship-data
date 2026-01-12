@@ -15,5 +15,5 @@
     "target_amount": 12000,
     "progress_percentage": 65.44
   },
-  "appreciation_message_template": "Despite the setback, your support is already bringing us back up to ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}). Read about the situation at https://ddev.com/blog/upsun-thank-you-new-sponsors-needed 🚀"
+  "appreciation_message_template": "WOW, you have helped us regain so much ground! We're up to ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}). Read about the situation at https://ddev.com/blog/upsun-thank-you-new-sponsors-needed 🚀"
 }

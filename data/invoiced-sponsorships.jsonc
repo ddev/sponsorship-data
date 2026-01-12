@@ -21,14 +21,14 @@
   },
   "annual_invoiced_sponsorships": {
     // total_annual_sponsorships must be manually maintained
-    "total_annual_sponsorships": 8600,
+    "total_annual_sponsorships": 10600,
     // total_sponsors must be manually maintained
-    "total_sponsors": 8,
+    "total_sponsors": 9,
     // monthly_equivalent_sponsorship must be manually maintained
-    "monthly_equivalent_sponsorship": 717,
+    "monthly_equivalent_sponsorship": 883,
     "annual_sponsors_per_tier": {
-      // B13
-      "2000": 1,
+      // B13 and Lullabot
+      "2000": 2,
       // Morris Animal Foundation, Johan Du Bois
       "300": 2,
       // Cambrico, Agaric, Centarro, Pixel & Tonic, other annual $1200 sponsors
