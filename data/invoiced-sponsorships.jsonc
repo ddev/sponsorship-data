@@ -7,6 +7,8 @@
     // total_sponsors must be manually maintained
     "total_sponsors": 6,
     "monthly_sponsors_per_tier": {
+      // cps-it, 100 Euros/month, estimate of current 
+      "118": 1,
       // Redfin Solutions and LetsTalk
       "100": 2,
       // Tag1
