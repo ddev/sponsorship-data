@@ -25,14 +25,16 @@
   },
   "annual_invoiced_sponsorships": {
     // total_annual_sponsorships must be manually maintained
-    "total_annual_sponsorships": 9400,
+    "total_annual_sponsorships": 10553,
     // total_sponsors must be manually maintained
-    "total_sponsors": 8,
+    "total_sponsors": 9,
     // monthly_equivalent_sponsorship must be manually maintained
-    "monthly_equivalent_sponsorship": 783,
+    "monthly_equivalent_sponsorship": 879,
     "annual_sponsors_per_tier": {
       // B13 and Lullabot
       "2000": 2,
+      // 8mylez 1000 Euros annually
+      "1153": 1,
       // Morris Animal Foundation, Johan Du Bois
       "300": 2,
       // Cambrico, Centarro, Pixel & Tonic, other annual $1200 sponsors (Agaric dropped in 2026, ask them in 2027)
