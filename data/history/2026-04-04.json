@@ -1,0 +1,96 @@
+{
+  "github_ddev_sponsorships": {
+    "total_monthly_sponsorship": 5086,
+    "total_sponsors": 228,
+    "sponsors_per_tier": {
+      "$1 a month": 6,
+      "$1 one time": 1,
+      "$2 a month": 4,
+      "$3 a month": 2,
+      "$5 a month": 114,
+      "$5 one time": 1,
+      "$7 a month": 2,
+      "$10 a month": 20,
+      "$10 one time": 2,
+      "$17 a month": 1,
+      "$20 a month": 1,
+      "$20 one time": 2,
+      "$25 a month": 45,
+      "$40 a month": 1,
+      "$50 a month": 5,
+      "$50 one time": 2,
+      "$100 a month": 14,
+      "$200 a month": 2,
+      "$500 a month": 1,
+      "$530 a month": 1,
+      "$850 one time": 1
+    }
+  },
+  "github_rfay_sponsorships": {
+    "total_monthly_sponsorship": 236,
+    "total_sponsors": 9,
+    "sponsors_per_tier": {
+      "$1 a month": 1,
+      "$5 a month": 2,
+      "$25 a month": 5,
+      "$100 a month": 1
+    }
+  },
+  "sponsorship_goals": [
+    {
+      "goal_id": "2025-q1-growth",
+      "description": "Reach $12,000 monthly recurring sponsorship",
+      "target_amount": 12000,
+      "goal_creation_date": "2025-01-01",
+      "goal_target_date": "2025-03-31",
+      "status": "active"
+    }
+  ],
+  "current_goal": {
+    "goal_id": "2025-q1-growth",
+    "target_amount": 12000,
+    "progress_percentage": 77.45
+  },
+  "appreciation_message_template": "WOW, you have helped us regain so much ground! We're up to ${PROGRESS_PERCENT}% of our ${TARGET_AMOUNT}/month goal (${CURRENT_AMOUNT}). Read about the situation at https://ddev.com/blog/upsun-thank-you-new-sponsors-needed 🚀",
+  "monthly_invoiced_sponsorships": {
+    "total_monthly_sponsorship": 3048,
+    "total_sponsors": 8,
+    "monthly_sponsors_per_tier": {
+      "118": 1,
+      "100": 2,
+      "500": 1,
+      "1000": 1,
+      "1162": 1,
+      "58": 1,
+      "10": 1
+    }
+  },
+  "annual_invoiced_sponsorships": {
+    "total_annual_sponsorships": 10553,
+    "total_sponsors": 9,
+    "monthly_equivalent_sponsorship": 879,
+    "annual_sponsors_per_tier": {
+      "2000": 2,
+      "1153": 1,
+      "300": 2,
+      "1200": 4
+    }
+  },
+  "paypal_sponsorships": 45,
+  "total_monthly_average_income": 9294,
+  "updated_datetime": "2026-04-04T00:34:47Z",
+  "historical_data": {
+    "one_week_ago": 7853
+  },
+  "monthly_historical_data": {
+    "2025-08": {
+      "date": "2025-08-05",
+      "total_monthly_average_income": 7853
+    },
+    "2026-04": {
+      "date": "2026-04-04",
+      "total_monthly_average_income": 9294
+    }
+  },
+  "appreciation_message": "WOW, you have helped us regain so much ground! We're up to 77% of our $12000/month goal ($9294). Read about the situation at https://ddev.com/blog/upsun-thank-you-new-sponsors-needed 🚀"
+}
