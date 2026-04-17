@@ -57,7 +57,7 @@ fi
 
 # Extract and populate appreciation message template
 appreciation_template=$(jq -r .appreciation_message_template data/tmp/goals.json)
-progress_percent=$(printf "%.0f" "$goal_progress")
+progress_percent=$(printf "%.1f" "$goal_progress")
 
 # Format numbers with commas using awk
 target_formatted=$(echo "$goal_target" | awk '{printf "%'"'"'d", $1}')
