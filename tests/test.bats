@@ -252,7 +252,7 @@ teardown() {
   echo "# Test appreciation message: $(jq -r '.appreciation_message' data/all-sponsorships.json)" >&3
   # Test for either format (Linux uses no commas, macOS may use commas)
   message=$(jq -r '.appreciation_message' data/all-sponsorships.json)
-  if [[ $message =~ "92% of our \$2,000/month goal (\$1,850/month)" ]] || [[ $message =~ "92% of our \$2000/month goal (\$1850/month)" ]]; then
+  if [[ $message =~ "92.5% of our \$2,000/month goal (\$1,850/month)" ]] || [[ $message =~ "92.5% of our \$2000/month goal (\$1850/month)" ]]; then
     true
   else
     false
