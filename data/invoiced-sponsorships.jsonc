@@ -3,9 +3,9 @@
 {
   "monthly_invoiced_sponsorships": {
     // total_monthly_sponsorship must be manually maintained
-    "total_monthly_sponsorship": 3048,
+    "total_monthly_sponsorship": 3630,
     // total_sponsors must be manually maintained
-    "total_sponsors": 8,
+    "total_sponsors": 9,
     "monthly_sponsors_per_tier": {
       // cps-it, 100 Euros/month, estimate of current 
       "118": 1,
@@ -13,6 +13,8 @@
       "100": 2,
       // Institute for Advanced Studies
       "500": 1,
+      // Paddox GmbH (safefive) (500 euros)
+      "582": 1,
       // Tag1
       "1000": 1,
       // Upsun
