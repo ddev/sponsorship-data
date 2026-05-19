@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Load 1password secret(s)
-        uses: 1password/load-secrets-action@v2
+        uses: 1password/load-secrets-action@v4
         with:
           export-env: true
         env:
@@ -31,7 +31,7 @@ jobs:
           # Install bats
           sudo apt-get update
           sudo apt-get install -y bats bats-assert bats-file bats-support
-          
+
           # Install required tools
           sudo npm install -g strip-json-comments-cli
           sudo apt-get install -y jq bc
@@ -49,7 +49,7 @@ jobs:
 
       - name: Upload test artifacts on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: |
