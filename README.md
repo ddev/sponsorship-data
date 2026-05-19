@@ -12,14 +12,16 @@ The data here is accumulated from a few sources:
 
 ## API Usage
 
+See the [API documentation](https://ddev.github.io/sponsorship-data/) for details on how to use the sponsorship data API.
+
 The sponsorship data is available as a [JSON file](https://ddev.com/s/sponsorship-data.json), which redirects to this repository's GitHub Pages at [https://ddev.github.io/sponsorship-data/data/all-sponsorships.json](https://ddev.github.io/sponsorship-data/data/all-sponsorships.json)
 
 ## Tools and Scripts
 
 ### Sponsorship History
 
-To provide sponsorship history, each daily deployment now saves a snapshot of the data in `data/history/YYYY-MM-DD.json`.  
-**These snapshots are committed to the `history` branch of this repository.**  
+To provide sponsorship history, each daily deployment now saves a snapshot of the data in `data/history/YYYY-MM-DD.json`.
+**These snapshots are committed to the `history` branch of this repository.**
 You can analyze sponsorship changes over time by checking out the `history` branch:
 
 ```bash
@@ -48,4 +50,3 @@ See these resources:
 
 * [Support DDEV](https://ddev.com/support-ddev/)
 * [GitHub Sponsors for DDEV](https://github.com/sponsors/ddev)
-

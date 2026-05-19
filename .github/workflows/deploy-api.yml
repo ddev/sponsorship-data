@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install requirements
         run: |
@@ -61,13 +61,13 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Load 1password secret(s)
-        uses: 1password/load-secrets-action@v2
+        uses: 1password/load-secrets-action@v4
         with:
           export-env: true
         env:
@@ -100,19 +100,19 @@ jobs:
           SNAPSHOT_DATE=$(date +%F)
           TEMP_SNAPSHOT="/tmp/snapshot-${SNAPSHOT_DATE}.json"
           cp data/all-sponsorships.json "${TEMP_SNAPSHOT}"
-          
+
           # Configure git
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Fetch and checkout history branch
           git fetch origin history || true
           git checkout -B history origin/history || git checkout --orphan history
-          
+
           # Create directory and copy snapshot
           mkdir -p data/history
           cp "${TEMP_SNAPSHOT}" "data/history/${SNAPSHOT_DATE}.json"
-          
+
           # Commit and push if there are changes
           git add data/history/
           if ! git diff --cached --quiet; then
@@ -121,7 +121,7 @@ jobs:
           else
             echo "No new history to commit"
           fi
-          
+
           # Return to main branch
           git checkout -
 
@@ -130,11 +130,11 @@ jobs:
           # Maintain existing URL structure for backward compatibility
           mkdir -p _site/data
           cp data/all-sponsorships.json _site/data/
-          
+
           # Also provide it at /api/ for cleaner URLs
           mkdir -p _site/api
           cp data/all-sponsorships.json _site/api/
-          
+
           # Create a simple index page for the API
           cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
@@ -151,21 +151,27 @@ jobs:
           <body>
             <h1>DDEV Sponsorship API</h1>
             <p>This API provides current sponsorship data for the DDEV project.</p>
-            
+
             <h2>Endpoints</h2>
             <div class="endpoint">GET /data/all-sponsorships.json (original path)</div>
             <div class="endpoint">GET /api/all-sponsorships.json (new path)</div>
-            
+
             <h2>Direct Links</h2>
+            <p><a href="https://ddev.com/s/sponsorship-data.json">Preferred link (ddev.com)</a></p>
             <p><a href="data/all-sponsorships.json">Original path (backward compatible)</a></p>
             <p><a href="api/all-sponsorships.json">New API path</a></p>
-            
+
             <h2>Usage</h2>
-            <pre>// Existing consumers - no changes needed.
+            <pre>// Preferred: use the ddev.com short URL
+            fetch('https://ddev.com/s/sponsorship-data.json')
+              .then(response => response.json())
+              .then(data => console.log(data));
+
+            // Existing consumers - no changes needed.
             fetch('https://ddev.github.io/sponsorship-data/data/all-sponsorships.json')
               .then(response => response.json())
               .then(data => console.log(data));</pre>
-            
+
             <h2>Repository</h2>
             <p><a href="https://github.com/ddev/sponsorship-data">Source code and documentation</a></p>
           </body>
@@ -173,13 +179,13 @@ jobs:
           EOF
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: './_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
