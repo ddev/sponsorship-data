@@ -59,9 +59,12 @@ fi
 appreciation_template=$(jq -r .appreciation_message_template data/tmp/goals.json)
 progress_percent=$(printf "%.1f" "$goal_progress")
 
-# Format numbers with commas using awk
-target_formatted=$(echo "$goal_target" | awk '{printf "%'"'"'d", $1}')
-current_formatted=$(echo "$total_monthly_average_income" | awk '{printf "%'"'"'d", $1}')
+# Format numbers with commas (portable sed, no locale dependency)
+format_commas() {
+  printf '%s' "$1" | sed ':a;s/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
+}
+target_formatted=$(format_commas "$goal_target")
+current_formatted=$(format_commas "$total_monthly_average_income")
 
 appreciation_message=$(echo "$appreciation_template" | \
   sed "s/\${PROGRESS_PERCENT}/$progress_percent/g" | \
