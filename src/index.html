@@ -1,42 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>DDEV Sponsorship API</title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DDEV Sponsorship Data</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-    pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; }
-    .endpoint { background: #e3f2fd; padding: 0.5rem; border-radius: 4px; font-family: monospace; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #02a8e2;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --border: #ddd;
+      --text: #333;
+      --text-secondary: #666;
+      --link: #0366d6;
+      --code-bg: #f0f9ff;
+      --code-border: #bae6fd;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1d293d;
+        --card-bg: #1d293d;
+        --border: #2b3a58;
+        --text: #e0e6f0;
+        --text-secondary: #aaa;
+        --link: #58a6ff;
+        --code-bg: #0c2231;
+        --code-border: #1e4a6e;
+      }
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .page-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .page-header:hover { text-decoration: none; }
+    .page-header svg { flex-shrink: 0; }
+
+    .page-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .page-subtitle { margin-bottom: 2rem; }
+
+    h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin: 1.25rem 0 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    p { color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.875rem; }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+
+    td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.875rem;
+      word-break: break-all;
+    }
+
+    pre {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .badge-preview {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      background: #ffffff;
+    }
+
+    .badge-preview img { display: block; width: 100%; }
+
+    .badge-preview.dark { background: #1d293d; }
+
+    .badge-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      padding: 0.3rem 0.6rem;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
-  <h1>DDEV Sponsorship API</h1>
-  <p>This API provides current sponsorship data for the DDEV project.</p>
 
-  <h2>Endpoints</h2>
-  <div class="endpoint">GET /data/all-sponsorships.json (original path)</div>
-  <div class="endpoint">GET /api/all-sponsorships.json (new path)</div>
-  <h2>Direct Links</h2>
-  <p><a href="https://ddev.com/s/sponsorship-data.json">Preferred link (ddev.com)</a></p>
-  <p><a href="data/all-sponsorships.json">Original path (backward compatible)</a></p>
-  <p><a href="api/all-sponsorships.json">New API path</a></p>
+<main>
 
-  <h2>Usage</h2>
-  <pre>// Preferred: use the ddev.com short URL
-fetch('https://ddev.com/s/sponsorship-data.json')
-  .then(response => response.json())
-  .then(data => console.log(data));
+  <a href="https://ddev.com" class="page-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.16 199.3" width="28" height="28" fill="currentColor" fill-rule="evenodd">
+      <path d="M116.77,18.59h84.55l45.32,45.33v71.47l-45.32,45.32H125.2a11.84,11.84,0,0,0-8.72-4.07,11.33,11.33,0,1,0,8.72,18.59h82.22l53.74-53.74V57.81L207.42,4.07H116.77A11.82,11.82,0,0,0,108.06,0a11.33,11.33,0,0,0,0,22.66A11.82,11.82,0,0,0,116.77,18.59Zm-8.71-12.2a4.59,4.59,0,0,1,4.64,4.54V11a4.65,4.65,0,0,1-9.29.43,3.09,3.09,0,0,1,0-.43A4.78,4.78,0,0,1,108.06,6.39Zm8.71,176.93a4.65,4.65,0,1,1-4.65,4.65h0a4.58,4.58,0,0,1,4.53-4.65Z"/>
+      <path d="M195.5,33.12H87.43v.29a10.58,10.58,0,0,0-8.14-3.49,11.34,11.34,0,1,0,9.3,18H189.4L217.59,76.1v47.35L189.4,151.64H86.85a11.84,11.84,0,0,0-8.72-4.07,11.33,11.33,0,1,0,8.72,18.59H195.21l36.61-36.6V69.73ZM79.29,36.61a4.65,4.65,0,1,1-4.64,4.66v0C74.36,38.64,76.68,36.61,79.29,36.61ZM78.42,154a4.65,4.65,0,1,1-4.65,4.65h0C73.48,156,75.81,154,78.42,154Z"/>
+      <path d="M178.65,136.55H47.34a10.75,10.75,0,0,1-7.85,3.19,11.33,11.33,0,1,1,0-22.66,11.59,11.59,0,0,1,9.3,4.94h36l-15.1-15.11H20A11.82,11.82,0,0,1,11.31,111,11.33,11.33,0,1,1,20,92.41H75.81L105.73,122H177.2L188,111.27v-23L177.2,77.57H110.67l15.11,15.11h29.34a11.84,11.84,0,0,1,8.72-4.07,11.33,11.33,0,1,1-8.72,18.59H119.68L90,77.28H50.82a11.85,11.85,0,0,1-8.71,4.07,11.33,11.33,0,1,1,8.71-18.6H183.3l19.47,19.47v35.15L183.3,136.55ZM163.84,94.71a4.65,4.65,0,1,0,4.65,4.65h0C168.78,97,166.45,94.71,163.84,94.71ZM42.4,65.08a4.65,4.65,0,1,0,4.65,4.65A4.78,4.78,0,0,0,42.4,65.08Zm-2.91,58.68a4.65,4.65,0,1,0,4.65,4.65C44.43,125.8,42.11,123.76,39.49,123.76ZM11.6,94.71a4.65,4.65,0,1,0,0,9.3,4.6,4.6,0,0,0,4.65-4.53v-.12A4.78,4.78,0,0,0,11.6,94.71Z"/>
+    </svg>
+    <h1 class="page-title">DDEV Sponsorship Data</h1>
+  </a>
+  <p class="page-subtitle">Daily-updated sponsorship data for the DDEV project. Updated every day at midnight UTC.</p>
 
-// Existing consumers: no changes needed.
-fetch('https://ddev.github.io/sponsorship-data/data/all-sponsorships.json')
+  <h2>JSON API</h2>
+  <table>
+    <tr><th>URL</th><th style="width:28%">Notes</th></tr>
+    <tr><td><a href="https://ddev.com/s/sponsorship-data.json">ddev.com/s/sponsorship-data.json</a></td><td>Preferred short URL</td></tr>
+    <tr><td><a href="https://ddev.github.io/sponsorship-data/data/all-sponsorships.json">ddev.github.io/sponsorship-data/data/all-sponsorships.json</a></td><td>Direct (backward compatible)</td></tr>
+    <tr><td><a href="https://ddev.github.io/sponsorship-data/api/all-sponsorships.json">ddev.github.io/sponsorship-data/api/all-sponsorships.json</a></td><td>Direct (new path)</td></tr>
+  </table>
+
+  <h3>Usage</h3>
+  <pre>fetch('https://ddev.com/s/sponsorship-data.json')
   .then(response => response.json())
   .then(data => console.log(data));</pre>
 
   <h2>Sponsorship Badges</h2>
-  <p><img src="badges/sponsorship-badge.svg" alt="DDEV Sponsorship badge (light mode)" style="display:block;width:100%;"></p>
-  <p><img src="badges/sponsorship-badge-dark.svg" alt="DDEV Sponsorship badge (dark mode)" style="display:block;width:100%;background:#0d1117;"></p>
+  <p>Generated daily from the JSON data. Updates automatically with each deploy.</p>
+
+  <div class="badge-preview">
+    <img src="https://ddev.github.io/sponsorship-data/badges/sponsorship-badge.svg" alt="DDEV Sponsorship badge (light mode)">
+    <div class="badge-label">Light mode - <a href="https://ddev.github.io/sponsorship-data/badges/sponsorship-badge.svg">ddev.github.io/sponsorship-data/badges/sponsorship-badge.svg</a></div>
+  </div>
+
+  <div class="badge-preview dark">
+    <img src="https://ddev.github.io/sponsorship-data/badges/sponsorship-badge-dark.svg" alt="DDEV Sponsorship badge (dark mode)">
+    <div class="badge-label">Dark mode - <a href="https://ddev.github.io/sponsorship-data/badges/sponsorship-badge-dark.svg">ddev.github.io/sponsorship-data/badges/sponsorship-badge-dark.svg</a></div>
+  </div>
+
+  <h3>Embed</h3>
+  <pre>&lt;a href="https://ddev.github.io/sponsorship-data/"&gt;
+  &lt;picture&gt;
+    &lt;source media="(prefers-color-scheme: dark)" srcset="https://ddev.github.io/sponsorship-data/badges/sponsorship-badge-dark.svg"&gt;
+    &lt;img alt="DDEV sponsorship progress towards monthly goal" src="https://ddev.github.io/sponsorship-data/badges/sponsorship-badge.svg"&gt;
+  &lt;/picture&gt;
+&lt;/a&gt;</pre>
 
   <h2>Repository</h2>
-  <p><a href="https://github.com/ddev/sponsorship-data">Source code and documentation</a></p>
+  <p><a href="https://github.com/ddev/sponsorship-data">github.com/ddev/sponsorship-data</a> - source code and documentation</p>
+
+</main>
+
+<footer>
+  <a href="https://ddev.com">ddev.com</a> &nbsp;·&nbsp;
+  <a href="https://github.com/sponsors/ddev">Sponsor DDEV</a> &nbsp;·&nbsp;
+  <a href="https://github.com/ddev/sponsorship-data">GitHub</a>
+</footer>
+
 </body>
 </html>

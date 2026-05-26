@@ -39,25 +39,14 @@ jobs:
 
       - name: Test script execution
         run: |
-          # Test that scripts can run without errors
           scripts/combine-sponsorships.sh
-
-      - name: Validate generated JSON
-        run: |
-          # Check that generated JSON is valid
-          if [ -f data/all-sponsorships.json ]; then
-            cat data/all-sponsorships.json | jq . > /dev/null
-            echo "Generated JSON is valid"
-          else
-            echo "No JSON file generated"
-            exit 1
-          fi
+          jq . data/all-sponsorships.json > /dev/null
 
       - name: Test SVG generation
         run: |
-          scripts/generate-sponsorship-svg.sh data/all-sponsorships.json /tmp/test-badge.svg /tmp/test-badge-dark.svg
-          grep -q '<svg' /tmp/test-badge.svg && echo "Light SVG generated"
-          grep -q '<svg' /tmp/test-badge-dark.svg && echo "Dark SVG generated"
+          scripts/generate-sponsorship-svg.sh
+          grep -q '<svg' data/tmp/sponsorship-badge.svg
+          grep -q '<svg' data/tmp/sponsorship-badge-dark.svg
 
   deploy:
     runs-on: ubuntu-24.04
