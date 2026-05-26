@@ -275,6 +275,44 @@ teardown() {
   assert_success
 }
 
+@test "generate-sponsorship-svg.sh produces valid SVG files" {
+  # Use test fixtures for predictable values
+  for file in tests/testdata/mock-*.jsonc; do
+    target="data/$(basename "$file" | sed 's/^mock-//')"
+    cp "$file" "$target"
+  done
+  run bash scripts/combine-sponsorships.sh
+  assert_success
+
+  run bash scripts/generate-sponsorship-svg.sh data/all-sponsorships.json
+  assert_success
+
+  assert_file_exists "data/tmp/sponsorship-badge.svg"
+  assert_file_exists "data/tmp/sponsorship-badge-dark.svg"
+
+  # Both files should be valid SVG
+  run grep -q '<svg' data/tmp/sponsorship-badge.svg
+  assert_success
+  run grep -q '<svg' data/tmp/sponsorship-badge-dark.svg
+  assert_success
+
+  # Light SVG should contain correct percentage and goal (1850/2000*100 = 92.5%)
+  run grep -q '92.5% towards \$2,000/month goal' data/tmp/sponsorship-badge.svg
+  assert_success
+
+  # Both SVGs should contain the formatted total amount
+  run grep -q '\$1,850' data/tmp/sponsorship-badge.svg
+  assert_success
+  run grep -q '\$1,850' data/tmp/sponsorship-badge-dark.svg
+  assert_success
+
+  # Light and dark should use different text colors
+  run grep -q '#24292e' data/tmp/sponsorship-badge.svg
+  assert_success
+  run grep -q '#e6edf3' data/tmp/sponsorship-badge-dark.svg
+  assert_success
+}
+
 @test "appreciation message is properly extracted from goals" {
   run bash scripts/combine-sponsorships.sh
   assert_success
