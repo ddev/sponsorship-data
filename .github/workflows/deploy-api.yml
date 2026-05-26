@@ -89,7 +89,7 @@ jobs:
         run: |
           git fetch origin history
           LATEST=$(git ls-tree --name-only origin/history data/history/ | sort | tail -1)
-          git show "origin/history:data/history/${LATEST}" > data/all-sponsorships.json
+          git show "origin/history:${LATEST}" > data/all-sponsorships.json
           echo "Using cached data from ${LATEST}"
 
       - name: Fetch GitHub sponsorship data
