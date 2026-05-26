@@ -1,3 +1,5 @@
+[![Deploy API Data to GitHub Pages](https://github.com/ddev/sponsorship-data/actions/workflows/deploy-api.yml/badge.svg)](https://ddev.github.io/sponsorship-data/)
+
 # DDEV Sponsorship Data
 
 Daily-updated sponsorship data for the DDEV project, published via GitHub Pages as a JSON API and SVG badges.
