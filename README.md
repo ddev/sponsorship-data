@@ -25,6 +25,20 @@ The combined data is published at:
 
 See the [API index page](https://ddev.github.io/sponsorship-data/) for full documentation.
 
+## Integrations
+
+| Property | Source file |
+|----------|-------------|
+| [ddev.com](https://ddev.com) | [SponsorsBanner.astro](https://github.com/ddev/ddev.com/blob/main/src/components/SponsorsBanner.astro) |
+| [addons.ddev.com](https://addons.ddev.com) | [sponsors-banner.html](https://github.com/ddev/addon-registry/blob/main/_includes/sponsors-banner.html) |
+| [docs.ddev.com](https://docs.ddev.com) | [sponsors-banner.html](https://github.com/ddev/ddev/blob/main/docs/overrides/partials/sponsors-banner.html) |
+| [thedroptimes.com](https://www.thedroptimes.com/) | |
+| [markconroy/web-components](https://web-components.mark.ie/web-components/ddev/sponsors-banner/) | [sponsors-banner.js](https://github.com/markconroy/web-components/blob/main/web-components/ddev/sponsors-banner/sponsors-banner.js) |
+
+The feed also drives sponsorship progress tips shown in the terminal at `ddev start`.
+
+See the [blog post](https://ddev.com/blog/sponsorship-data-droptimes/) for a full write-up of the project and its integrations.
+
 ## SVG Badges
 
 Two sponsorship progress badges are generated daily alongside the JSON data:
@@ -33,7 +47,6 @@ Two sponsorship progress badges are generated daily alongside the JSON data:
 |-------|-----|
 | Light mode | `https://ddev.github.io/sponsorship-data/badges/sponsorship-badge.svg` |
 | Dark mode | `https://ddev.github.io/sponsorship-data/badges/sponsorship-badge-dark.svg` |
-
 
 ## Scripts
 
