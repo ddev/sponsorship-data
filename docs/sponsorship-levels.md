@@ -23,6 +23,7 @@ Each tier includes all benefits of lower tiers.
 ### 🏢 $100 / month — Featured — Great for small agencies
 
 - Your logo and link in the [DDEV README](https://github.com/ddev/ddev/blob/main/README.md)
+- Your entire team gets to use Coder.ddev.com to experience DDEV in the cloud. See [announcement](https://ddev.com/blog/coder-ddev-com-announcement/).
 - Free [Diffy](https://diffy.website) visual regression testing Pro plan license for a one-year ($800 value).
 
 ### 💎 $500 / month — Great for large organizations
