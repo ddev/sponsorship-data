@@ -91,6 +91,6 @@ done | sort
 
 ## Support DDEV
 
+- [Sponsor DDEV](https://ddev.com/sponsor/)
 - [GitHub Sponsors](https://github.com/sponsors/ddev)
-- [Support DDEV](https://ddev.com/support-ddev/)
 - [DDEV Foundation](https://ddev.com/foundation)
