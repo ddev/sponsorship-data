@@ -23,11 +23,11 @@
   },
   "annual_invoiced_sponsorships": {
     // total_annual_sponsorships must be manually maintained
-    "total_annual_sponsorships": 10553,
+    "total_annual_sponsorships": 12334,
     // total_sponsors must be manually maintained
-    "total_sponsors": 9,
+    "total_sponsors": 10,
     // monthly_equivalent_sponsorship must be manually maintained
-    "monthly_equivalent_sponsorship": 879,
+    "monthly_equivalent_sponsorship": 1028,
     "annual_sponsors_per_tier": {
       // B13 and Lullabot
       "2000": 2,
@@ -36,7 +36,9 @@
       // Morris Animal Foundation, Johan Du Bois
       "300": 2,
       // Cambrico, Centarro, Pixel & Tonic, other annual $1200 sponsors (Agaric dropped in 2026, ask them in 2027)
-      "1200": 4
+      "1200": 4,
+      // NedCamp, Nov 2026, only for one year unless they come on next year
+      "1781": 1
     }
   }
 }
